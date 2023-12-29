@@ -5,10 +5,19 @@ if not status_ok then
 end
 
 dap_vscode_js.setup({
-  adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }
+  adapters = { 'pwa-node', 'node-terminal', 'pwa-extensionHost' }
 })
 
-for _, lang in ipairs({ 'javascript', 'typescript' }) do
+M.deps.dap.langs = {
+  js_based_langs = {
+    "typescript",
+    "javascript",
+    "typescriptreact",
+    "javascriptreact"
+  }
+}
+
+for _, lang in ipairs(M.deps.dap.langs.js_based_langs) do
   M.deps.dap.package.configurations[lang] = {
     {
       type = "pwa-node",
@@ -16,6 +25,7 @@ for _, lang in ipairs({ 'javascript', 'typescript' }) do
       name = "Launch file",
       program = "${file}",
       cwd = "${workspaceFolder}",
+      sourceMaps = true
     },
     {
       type = "pwa-node",
@@ -23,6 +33,12 @@ for _, lang in ipairs({ 'javascript', 'typescript' }) do
       name = "Attach",
       processId = require'dap.utils'.pick_process,
       cwd = "${workspaceFolder}",
+      sourceMaps = true
+    },
+    {
+      name = "------ Launch.json configs ------",
+      type = "",
+      request = "launch"
     }
   }
 end

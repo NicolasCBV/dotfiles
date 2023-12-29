@@ -9,8 +9,6 @@ if not status_ok_dap then
   return
 end
 
-dap.set_log_level('TRACE')
-
 local status_ok_ext_vscode, dap_ext_vscode = pcall(require, 'dap.ext.vscode')
 if not status_ok_ext_vscode then
   M.deps.dap = {
@@ -22,14 +20,13 @@ if not status_ok_ext_vscode then
   }
 end
 
-dap_ext_vscode.load_launchjs()
-
 M.deps.dap = {
   package = dap,
   name = 'dap',
+  langs = {},
   fn = {},
   internals = {
-    { module = dap_ext_vscode, name = 'dap.ext.vscode' }
+    dap_vscode_launch_file_reader = { module = dap_ext_vscode, name = 'dap.ext.vscode' }
   }
 }
 

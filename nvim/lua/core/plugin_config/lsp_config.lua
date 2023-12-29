@@ -42,34 +42,21 @@ if not lsp_status_ok then
   return
 end
 
-local on_attach = function (_, bufnr)
-  M.keys.add({
-    {
-      shortcut = '<leader><Enter>',
-      cmd = bufnr.type_definition,
-      desc = "Type definition"
-    },
-    {
-      shortcut = '<C-s>',
-      cmd = bufnr.formatting_sync,
-      desc = "Formatting sync"
-    },
-    {
-      shortcut = '<leader>ca',
-      cmd = bufnr.code_action,
-      desc = "Code action"
-    },
-    {
-      shortcut = 'gd',
-      cmd = bufnr.definition,
-      desc = 'Definition'
-    },
-    {
-      shortcut = 'gr',
-      cmd = M.deps.telescope_builtin.package.lsp_references,
-      desc = 'Lsp references (telescope)'
-    }
-  })
+local function nnoremap(rhs, lhs, bufopts, desc)
+  bufopts.desc = desc
+  vim.keymap.set("n", rhs, lhs, bufopts)
+end
+
+local on_attach = function (_, _)
+  nnoremap(
+    "<leader><Enter>",
+    '<cmd>:lua vim.lsp.buf.type_definition()<CR>',
+    {},
+    "Type definition"
+  )
+  nnoremap("<leader>ca", '<cmd>:lua vim.lsp.buf.code_action()<CR>', {}, "Code action")
+  nnoremap("gd", '<cmd>:lua vim.lsp.buf.definition()<CR>', {}, "Definition")
+  nnoremap("gr",  M.deps.telescope_builtin.package.lsp_references, {}, "Lsp references (telescope)")
 end
 
 lsp.rust_analyzer.setup {
@@ -107,7 +94,12 @@ lsp.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = lsp.util.root_pattern("package.json"),
-  ignore = { "node_modules/**", "dist/**", "build/**" }
+  ignore = { "node_modules/**", "dist/**", "build/**" },
+  cmd = {
+    os.getenv('HOME') .. '/.local/share/nvim/mason/bin/typescript-language-server',
+    '--stdio',
+    '--log-level=2'
+  }
 }
 
 M.deps.cmp_nvim_lsp = { package = cmp_nvim_lsp, name = 'cmp_nvim_lsp' }

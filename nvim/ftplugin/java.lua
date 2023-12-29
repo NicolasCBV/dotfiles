@@ -11,7 +11,7 @@ local root_markers = {
 }
 local root_dir = require('jdtls.setup').find_root(root_markers)
 
-local workspace_folder = home .. '/.local/share/eclipse' .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local workspace_folder = home .. '/.local/share/java_workspaces/' .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 
 function nnoremap(rhs, lhs, bufopts, desc)
   bufopts.desc = desc
@@ -48,10 +48,14 @@ local on_attach = function(_, bufnr)
 
   jdtls.extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
-  nnoremap("<leader><Enter>", bufnr.type_definition, {}, "Type definition")
-  nnoremap("<C-s>", bufnr.formatting_sync, {}, "Formatting sync")
-  nnoremap("<leader>ca", bufnr.code_action, {}, "Code action")
-  nnoremap("gd", bufnr.definition, {}, "Definition")
+  nnoremap(
+    "<leader><Enter>",
+    '<cmd>:lua vim.lsp.buf.type_definition()<CR>',
+    {},
+    "Type definition"
+  )
+  nnoremap("<leader>ca", '<cmd>:lua vim.lsp.buf.code_action()<CR>', {}, "Code action")
+  nnoremap("gd", '<cmd>:lua vim.lsp.buf.definition()<CR>', {}, "Definition")
   nnoremap("gr", require("telescope.builtin").lsp_references, {}, "Lsp references (telescope)")
   require('jdtls').setup_dap({ hotcodereplace = 'auto' })
 end
@@ -126,6 +130,10 @@ local config = {
 
   cmd = {
     home .. '/.local/share/nvim/mason/bin/jdtls',
+    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+    '-Dosgi.bundles.defaultStartLevel=4',
+    '-Declipse.product=org.eclipse.jdt.ls.core.product',
+    '-noverify',
     '-XX:+UseParallelGC',
     '-XX:GCTimeRatio=4',
     '-XX:AdaptiveSizePolicyWeight=90',

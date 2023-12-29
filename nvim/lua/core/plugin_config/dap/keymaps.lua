@@ -11,12 +11,12 @@ M.keys.add({
   },
   {
     shortcut = '<F2>',
-    cmd = ":lua require'dap'.clear_breakpoints()<CR>",
+    cmd = function() M.deps.dap.package.clear_breakpoints() end,
     desc = 'Clear breakpoints (dap)'
   },
   {
     shortcut = '<F5>',
-    cmd = ":lua require'dap'.continue()<cr>",
+    cmd = M.deps.dap.fn.dap_continue,
     desc = 'Continue (dap)'
   },
   {
@@ -41,12 +41,12 @@ M.keys.add({
   },
   {
     shortcut = '<leader>b',
-    cmd = ":lua require'dap'.toggle_breakpoint()<CR>",
+    cmd = M.deps.dap.package.toggle_breakpoint,
     desc = 'Toggle breakpoint (dap)'
   },
   {
     shortcut = '<leader>dd',
-    cmd = ":lua require'dap'.disconnect()<CR>",
+    cmd = M.deps.dap.package.disconnect,
     desc = 'Disconnect (dap)'
   }
 })
