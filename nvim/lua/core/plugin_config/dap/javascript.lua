@@ -5,6 +5,7 @@ if not status_ok then
 end
 
 dap_vscode_js.setup({
+  debugger_path = os.getenv('HOME') .. '/.local/share/vscode-js-debug',
   adapters = { 'pwa-node', 'node-terminal', 'pwa-extensionHost' }
 })
 

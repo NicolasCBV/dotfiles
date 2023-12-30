@@ -12,14 +12,23 @@ end
 local packer_bootstrap = ensure_packer()
 
 require("packer").startup(function(use)
+    -- Database Client
+    use {
+      'kristijanhusak/vim-dadbod-ui',
+      dependencies = {
+        { 'tpope/vim-dadbod', lazy = true },
+        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      }
+    }
+
     -- ui lib
     use "MunifTanjim/nui.nvim"
 
     -- markdown preview
-    use({
+    use{
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
-    })
+    }
 
 	-- packer
     use "wbthomason/packer.nvim"

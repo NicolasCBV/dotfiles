@@ -219,6 +219,11 @@ _G.packer_plugins = {
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
+  ["vim-dadbod-ui"] = {
+    loaded = true,
+    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/vim-dadbod-ui",
+    url = "https://github.com/kristijanhusak/vim-dadbod-ui"
+  },
   ["vim-polyglot"] = {
     loaded = true,
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/vim-polyglot",
