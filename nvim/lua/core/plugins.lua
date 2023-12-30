@@ -15,9 +15,15 @@ require("packer").startup(function(use)
     -- Database Client
     use {
       'kristijanhusak/vim-dadbod-ui',
-      dependencies = {
+      requires = {
         { 'tpope/vim-dadbod', lazy = true },
         { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      },
+      cmd = {
+        'DBUI',
+        'DBUIToggle',
+        'DBUIAddConnection',
+        'DBUIFindBuffer',
       }
     }
 
