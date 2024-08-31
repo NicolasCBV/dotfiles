@@ -3,7 +3,7 @@ M.deps = {}
 require("core.plugin_config.telescope")
 require("core.plugin_config.auto-pairs")
 require("core.plugin_config.completions")
-require("core.plugin_config.gruvbox")
+require("core.plugin_config.github")
 require("core.plugin_config.lsp_config")
 require("core.plugin_config.lualine")
 require("core.plugin_config.neo-tree")
@@ -12,8 +12,6 @@ require("core.plugin_config.toggleterm")
 require("core.plugin_config.treesitter")
 require("core.plugin_config.errors")
 require("core.plugin_config.dap.init")
-require("core.plugin_config.symbols")
-require("core.plugin_config.folding")
 
 for _, dep in pairs(M.deps) do
   local function buildErrorMsg(dep_name)

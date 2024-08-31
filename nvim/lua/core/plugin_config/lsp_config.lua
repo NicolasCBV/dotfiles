@@ -14,14 +14,20 @@ end
 
 masonlsp.setup({
   ensure_installed = {
+    "gopls",
+    "tailwindcss",
     "clangd",
+    "html",
+    "cssls",
     "csharp_ls",
+    "angularls",
     "jdtls",
     "lua_ls",
     "omnisharp",
     "omnisharp_mono",
-    "rust_analyzer",
     "tsserver",
+    "dockerls",
+    "terraformls"
   }
 })
 
@@ -47,33 +53,86 @@ local function nnoremap(rhs, lhs, bufopts, desc)
   vim.keymap.set("n", rhs, lhs, bufopts)
 end
 
-local on_attach = function (_, _)
+local on_attach = function(_, bufnr)
+  local opts = { buffer = bufnr }
   nnoremap(
     "<leader><Enter>",
-    '<cmd>:lua vim.lsp.buf.type_definition()<CR>',
-    {},
+    vim.lsp.buf.type_definition,
+    opts,
     "Type definition"
   )
-  nnoremap("<leader>ca", '<cmd>:lua vim.lsp.buf.code_action()<CR>', {}, "Code action")
-  nnoremap("gd", '<cmd>:lua vim.lsp.buf.definition()<CR>', {}, "Definition")
-  nnoremap("gr",  M.deps.telescope_builtin.package.lsp_references, {}, "Lsp references (telescope)")
+  nnoremap("<leader>ca", vim.lsp.buf.code_action, opts, "Code action")
+  nnoremap("gd", vim.lsp.buf.definition, opts, "Definition")
+  nnoremap("gr",  M.deps.telescope_builtin.package.lsp_references, opts, "Lsp references (telescope)")
+  nnoremap(
+    "<leader>rr",
+    function ()
+      vim.diagnostic.reset();
+      vim.cmd('LspRestart');
+    end,
+    opts,
+    "Restart LSP"
+  )
 end
 
-lsp.rust_analyzer.setup {
-  on_attach = on_attach,
+lsp.gopls.setup {
   capabilities = capabilities,
-  ignore = { "dist/**", "build/**" }
+  on_attach = on_attach
 }
 
-lsp.omnisharp.setup {
-  on_attach = on_attach,
+lsp.rust_analyzer.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
+  ignore = { "dist/**", "build/**", "target/**" },
+  cmd = {
+    "rustup", "run", "stable", "rust-analyzer"
+  }
+}
+
+lsp.terraformls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach
+}
+
+lsp.html.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lsp.cssls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lsp.dockerls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+
+lsp.angularls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  root_dir = lsp.util.root_pattern("package.json"),
+  ignore = { "node_modules/**", "dist/**", "build/**", ".angular/**" }
+}
+
+lsp.tailwindcss.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  root_dir = lsp.util.root_pattern("package.json"),
+  ignore = { "node_modules/**", "dist/**", "build/**" }
+}
+
+
+lsp.omnisharp.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
   ignore = { "dist/**", "build/**" }
 }
 
 lsp.lua_ls.setup {
-  on_attach = on_attach,
   capabilities = capabilities,
+  on_attach = on_attach,
   filetypes = { "lua" },
   settings = {
     Lua = {
@@ -85,21 +144,17 @@ lsp.lua_ls.setup {
 }
 
 lsp.clangd.setup {
-  on_attach = on_attach,
   capabilities = capabilities,
+  on_attach = on_attach,
   ignore = { "dist/**", "build/**" }
 }
 
 lsp.tsserver.setup {
-  on_attach = on_attach,
   capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
   root_dir = lsp.util.root_pattern("package.json"),
   ignore = { "node_modules/**", "dist/**", "build/**" },
-  cmd = {
-    os.getenv('HOME') .. '/.local/share/nvim/mason/bin/typescript-language-server',
-    '--stdio',
-    '--log-level=2'
-  }
 }
 
 M.deps.cmp_nvim_lsp = { package = cmp_nvim_lsp, name = 'cmp_nvim_lsp' }

@@ -29,6 +29,18 @@ neotree.setup({
       window = {
         position = "float",
         width = 25
+      },
+      group_empty_dirs = true,
+      use_libuv_file_watcher = false
+    },
+    buffers = {
+      follow_current_file = {
+        enabled = true,
+      },
+      group_empty_dirs = true,
+      show_unloaded = false,
+      window = {
+        ["bd"] = "buffer_delete",
       }
     }
 })

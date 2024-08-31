@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/nicolas/.cache/nvim/packer_hererocks/2.1.1700008891/share/lua/5.1/?.lua;/home/nicolas/.cache/nvim/packer_hererocks/2.1.1700008891/share/lua/5.1/?/init.lua;/home/nicolas/.cache/nvim/packer_hererocks/2.1.1700008891/lib/luarocks/rocks-5.1/?.lua;/home/nicolas/.cache/nvim/packer_hererocks/2.1.1700008891/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/nicolas/.cache/nvim/packer_hererocks/2.1.1700008891/lib/lua/5.1/?.so"
+local package_path_str = "/home/nicolas/.cache/nvim/packer_hererocks/2.1.1720049189/share/lua/5.1/?.lua;/home/nicolas/.cache/nvim/packer_hererocks/2.1.1720049189/share/lua/5.1/?/init.lua;/home/nicolas/.cache/nvim/packer_hererocks/2.1.1720049189/lib/luarocks/rocks-5.1/?.lua;/home/nicolas/.cache/nvim/packer_hererocks/2.1.1720049189/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/nicolas/.cache/nvim/packer_hererocks/2.1.1720049189/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -94,15 +94,10 @@ _G.packer_plugins = {
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
-  ["gruvbox-material"] = {
+  ["github-nvim-theme"] = {
     loaded = true,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/gruvbox-material",
-    url = "https://github.com/sainnhe/gruvbox-material"
-  },
-  ["gruvbox.nvim"] = {
-    loaded = true,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
-    url = "https://github.com/ellisonleao/gruvbox.nvim"
+    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/github-nvim-theme",
+    url = "https://github.com/projekt0n/github-nvim-theme"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -154,6 +149,11 @@ _G.packer_plugins = {
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-dap",
     url = "https://github.com/mfussenegger/nvim-dap"
   },
+  ["nvim-dap-go"] = {
+    loaded = true,
+    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-dap-go",
+    url = "https://github.com/leoluz/nvim-dap-go"
+  },
   ["nvim-dap-ui"] = {
     loaded = true,
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-dap-ui",
@@ -174,15 +174,15 @@ _G.packer_plugins = {
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-nio"] = {
+    loaded = true,
+    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-nio",
+    url = "https://github.com/nvim-neotest/nvim-nio"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
-  },
-  ["nvim-ufo"] = {
-    loaded = true,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/nvim-ufo",
-    url = "https://github.com/kevinhwang91/nvim-ufo"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -199,16 +199,6 @@ _G.packer_plugins = {
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["promise-async"] = {
-    loaded = true,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/promise-async",
-    url = "https://github.com/kevinhwang91/promise-async"
-  },
-  ["symbols-outline.nvim"] = {
-    loaded = true,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/symbols-outline.nvim",
-    url = "https://github.com/simrat39/symbols-outline.nvim"
-  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -219,27 +209,6 @@ _G.packer_plugins = {
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
     url = "https://github.com/akinsho/toggleterm.nvim"
   },
-  ["vim-dadbod"] = {
-    loaded = true,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/vim-dadbod",
-    url = "https://github.com/tpope/vim-dadbod"
-  },
-  ["vim-dadbod-completion"] = {
-    after_files = { "/home/nicolas/.local/share/nvim/site/pack/packer/opt/vim-dadbod-completion/after/plugin/vim_dadbod_completion.lua", "/home/nicolas/.local/share/nvim/site/pack/packer/opt/vim-dadbod-completion/after/plugin/vim_dadbod_completion.vim" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/opt/vim-dadbod-completion",
-    url = "https://github.com/kristijanhusak/vim-dadbod-completion"
-  },
-  ["vim-dadbod-ui"] = {
-    commands = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = false,
-    path = "/home/nicolas/.local/share/nvim/site/pack/packer/opt/vim-dadbod-ui",
-    url = "https://github.com/kristijanhusak/vim-dadbod-ui"
-  },
   ["vim-polyglot"] = {
     loaded = true,
     path = "/home/nicolas/.local/share/nvim/site/pack/packer/start/vim-polyglot",
@@ -248,48 +217,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
-
--- Command lazy-loads
-time([[Defining lazy-load commands]], true)
-pcall(vim.api.nvim_create_user_command, 'DBUIAddConnection', function(cmdargs)
-          require('packer.load')({'vim-dadbod-ui'}, { cmd = 'DBUIAddConnection', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-dadbod-ui'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('DBUIAddConnection ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'DBUI', function(cmdargs)
-          require('packer.load')({'vim-dadbod-ui'}, { cmd = 'DBUI', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-dadbod-ui'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('DBUI ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'DBUIToggle', function(cmdargs)
-          require('packer.load')({'vim-dadbod-ui'}, { cmd = 'DBUIToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-dadbod-ui'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('DBUIToggle ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'DBUIFindBuffer', function(cmdargs)
-          require('packer.load')({'vim-dadbod-ui'}, { cmd = 'DBUIFindBuffer', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-dadbod-ui'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('DBUIFindBuffer ', 'cmdline')
-      end})
-time([[Defining lazy-load commands]], false)
-
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Filetype lazy-loads
-time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType sql ++once lua require("packer.load")({'vim-dadbod-completion'}, { ft = "sql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType plsql ++once lua require("packer.load")({'vim-dadbod-completion'}, { ft = "plsql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType mysql ++once lua require("packer.load")({'vim-dadbod-completion'}, { ft = "mysql" }, _G.packer_plugins)]]
-time([[Defining lazy-load filetype autocommands]], false)
-vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

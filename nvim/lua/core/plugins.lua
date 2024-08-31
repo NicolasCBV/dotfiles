@@ -12,21 +12,6 @@ end
 local packer_bootstrap = ensure_packer()
 
 require("packer").startup(function(use)
-    -- Database Client
-    use {
-      'kristijanhusak/vim-dadbod-ui',
-      requires = {
-        { 'tpope/vim-dadbod', lazy = true },
-        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-      },
-      cmd = {
-        'DBUI',
-        'DBUIToggle',
-        'DBUIAddConnection',
-        'DBUIFindBuffer',
-      }
-    }
-
     -- ui lib
     use "MunifTanjim/nui.nvim"
 
@@ -39,33 +24,25 @@ require("packer").startup(function(use)
 	-- packer
     use "wbthomason/packer.nvim"
 
-    -- Folding feature
-    use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-
     -- Debugger
     use {
       'mfussenegger/nvim-dap',
       requires = {
         'rcarriga/nvim-dap-ui',
-        'mxsdev/nvim-dap-vscode-js'
+        'nvim-neotest/nvim-nio',
+        'mxsdev/nvim-dap-vscode-js',
+        'leoluz/nvim-dap-go'
       }
     }
 
     -- auto pairs 
     use "windwp/nvim-autopairs"
 
-    -- Symbols
-    use "simrat39/symbols-outline.nvim"
-
     -- devicons
 	use "nvim-tree/nvim-web-devicons"
 
     -- bar
 	use "romgrk/barbar.nvim"
-
-    -- color scheme
-	use "sainnhe/gruvbox-material"
-	use "ellisonleao/gruvbox.nvim"
 
     -- language pack
 	use "sheerun/vim-polyglot"
@@ -87,13 +64,19 @@ require("packer").startup(function(use)
        "neovim/nvim-lspconfig"
     }
 
+    -- color scheme
+    use "projekt0n/github-nvim-theme"
+
     -- tree sitter
-    use("nvim-treesitter/nvim-treesitter", {run = ":TSUpdate"})
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      { run = ":TSUpdate" },
+    }
 
     -- file manager
     use {
       "nvim-neo-tree/neo-tree.nvim",
-      branch = "v2.x",
+      branch = "v3.x",
       requires = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",

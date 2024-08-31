@@ -12,6 +12,8 @@ local root_markers = {
 local root_dir = require('jdtls.setup').find_root(root_markers)
 
 local workspace_folder = home .. '/.local/share/java_workspaces/' .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local path_to_lombok = vim.fn.stdpath('data') .. '/mason/packages/jdtls/lombok.jar'
+local path_to_jar = vim.fn.stdpath('data') .. '/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.800.v20240304-1850.jar'
 
 function nnoremap(rhs, lhs, bufopts, desc)
   bufopts.desc = desc
@@ -119,8 +121,8 @@ local config = {
       configuration = {
         runtimes = {
           {
-            name = "JavaSE-17",
-            path = "/usr/lib/jvm/java-17-openjdk",
+            name = "JavaSE-22",
+            path = "/usr/lib/jvm/java-22-openjdk",
             default = true
           },
         }
@@ -133,15 +135,22 @@ local config = {
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
+    '-Dlog.protocol=true',
+    '-Dlog.level=ALL',
+    '-Xmx256m',
+    '-Xms100m',
     '-noverify',
     '-XX:+UseParallelGC',
     '-XX:GCTimeRatio=4',
     '-XX:AdaptiveSizePolicyWeight=90',
     '-Dsun.zip.disableMemoryMapping=true',
-    '-Xmx256m',
-    '-Xms100m',
-    '-configuration', home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
-    '-data', workspace_folder
+    '--jvm-arg=-javaagent:' .. path_to_lombok,
+    '-jar ', path_to_jar,
+    '-configuration ', home .. '/.local/share/nvim/mason/packages/jdtls/config_linux',
+    '-data', workspace_folder,
+    '--add-modules=ALL-SYSTEM',
+    '--add-opens java.base/java.util=ALL-UNNAMED',
+    '--add-opens java.base/java.lang=ALL-UNNAMED'
   },
 }
 

@@ -8,7 +8,7 @@ super + Return
 
 # browser
 super + b
-	firefox-developer-edition
+	brave
 
 # postman
 super + p

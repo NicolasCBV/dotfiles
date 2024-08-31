@@ -24,12 +24,6 @@ local globalOpt = { silent=true  }
 
 M.keys.add({
   {
-    shortcut = '<leader>u',
-    cmd = ':source %',
-    opts = globalOpt,
-    desc = 'Source actual file'
-  },
-  {
     shortcut = '<C-s>',
     cmd = ':w<CR>',
     opts = globalOpt,
@@ -54,11 +48,26 @@ M.keys.add({
     desc = 'Close all files'
   },
   {
-    shortcut = '<A-q>',
-    cmd = ':qa!<CR>',
-    opts = globalOpt,
-    desc = 'Force close all files'
-  }
+    shortcut = '<C-Up>',
+    cmd = ':m -2<CR>',
+    opts = { noremap = true, silent = true },
+    desc = 'Move up 1 line'
+  },
+  {
+    shortcut = '<C-Down>',
+    cmd = ':m +1<CR>',
+    opts = { noremap = true, silent = true },
+    desc = 'Move down 1 line'
+  },
 })
 
+vim.api.nvim_set_keymap('v', '<C-Up>', ':m .-2<CR>gv=gv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-Right>', ":'<,'>><CR>gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-Left>', ":'<,'><<CR>gv", { noremap = true, silent = true })
+
+
 return M
+
+
+
