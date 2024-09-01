@@ -1,0 +1,3 @@
+[submodule "devol-polybar"]
+	path = devol-polybar
+	url = https://github.com/NicolasCBV/devol-polybar
