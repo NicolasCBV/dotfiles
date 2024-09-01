@@ -1,0 +1,7 @@
+#!/bin/bash
+
+branch=$1
+
+echo "Using fish shortcut 'puh', equivalent of 'git push origin <actual branch>'"
+
+git push origin $(git rev-parse --abbrev-ref HEAD)

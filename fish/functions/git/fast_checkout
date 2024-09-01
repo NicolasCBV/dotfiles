@@ -1,0 +1,12 @@
+#!/bin/bash
+
+branch=$1
+
+if [ -z $branch ]; then
+	echo "Fast Checkout Error: could not find branch target"
+	exit 1
+fi
+
+echo "Using fish shortcut 'fac', equivalent of 'git checkout <branch>'"
+
+git checkout $branch

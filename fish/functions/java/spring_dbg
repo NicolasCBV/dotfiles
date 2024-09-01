@@ -1,0 +1,9 @@
+#!/bin/bash
+
+profile=$1
+
+if [ -z $profile ]; then
+	profile="dev"
+fi
+
+mvn clean -Dspring-boot.run.profiles=${profile} spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Using fish shortcut 'docdrop', equivalent of 'docker rm -f <all docker containers>"
+docker rm -f $(docker ps -a -q)
