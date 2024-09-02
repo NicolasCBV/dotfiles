@@ -15,7 +15,7 @@ alias --save nodedev="pnpm dev"
 alias --save nodetest="pnpm test"
 
 # Java
-alias --save javei="mvn install"
+alias --save javai="mvn install"
 alias --save javatest="mvn clean test"
 alias --save springdbg="spring_dbg"
 alias --save spring_start="spring_start"
