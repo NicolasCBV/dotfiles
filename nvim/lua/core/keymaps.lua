@@ -24,6 +24,12 @@ local globalOpt = { silent=true  }
 
 M.keys.add({
   {
+    shortcut = '<C-t>',
+    cmd = ':vertical new<CR>',
+    opts = globalOpt,
+    desc = 'Open new vertical window'
+  },
+  {
     shortcut = '<C-s>',
     cmd = ':w<CR>',
     opts = globalOpt,
