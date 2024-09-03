@@ -6,6 +6,7 @@ alias --save gstat="git status"
 alias --save glog="git log --abbrev-commit --graph" 
 alias --save com="git commit"
 alias --save puh="git_push"
+alias --save pul="git_pull"
 alias --save fac="fast_checkout"
 
 # Node

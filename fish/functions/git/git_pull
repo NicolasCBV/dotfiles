@@ -1,0 +1,8 @@
+#!/bin/bash
+
+branch=$1
+
+echo "Using fish shortcut 'pul', equivalent of 'git pull origin <actual branch>'"
+
+git pull origin $(git rev-parse --abbrev-ref HEAD)
+
