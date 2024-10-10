@@ -12,6 +12,11 @@ tree.setup({
   hijack_netrw = true,
   respect_buf_cwd = true,
   sync_root_with_cwd = true,
+  git = {
+    enable = true,
+    ignore = false,
+    timeout = 500,
+  },
   view = {
     float = {
       enable = true,
