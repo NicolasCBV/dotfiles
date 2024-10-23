@@ -1,5 +1,8 @@
 M.deps = {}
 
+require("core.plugin_config.nui.init")
+require("core.plugin_config.utils.init")
+
 require("core.plugin_config.telescope")
 require("core.plugin_config.auto-pairs")
 require("core.plugin_config.completions")

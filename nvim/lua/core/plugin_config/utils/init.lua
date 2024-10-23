@@ -1,6 +1,6 @@
 M.utils = {}
 
-require('core.utils.command-bar')
+require('core.plugin_config.utils.command-bar')
 
 M.keys.add({
   {

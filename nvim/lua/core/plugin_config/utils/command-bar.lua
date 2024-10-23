@@ -3,10 +3,7 @@
 -- https://github.com/VonHeikemen/fine-cmdline.nvim/blob/main/lua/fine-cmdline/init.lua
 -- Original author: VonHeikemen
 
-local status_ok, nui = pcall(require, 'nui.input')
-if not status_ok then
-  M.deps.nui = { package = nil, name = 'nui.input' }
-end
+require("core.plugin_config.utils.input")
 
 M.utils.command_bar = { fn = {} }
 local fn = {}
@@ -35,38 +32,21 @@ M.utils.command_bar.input = nil
 state.prompt_content = state.cmdline.prompt
 state.prompt_length = state.cmdline.prompt:len()
 
-local configs = {
-  popup = {
-    position = {
-      row = '10%',
-      col = '50%'
-    },
-    size = {
-      width = '60%'
-    },
-    border = {
-      style = 'rounded'
-    },
-    win_options = {
-      winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
-    }
-  },
-  input = {
-    prompt = state.cmdline.prompt,
-    default_value = '',
-    on_change = function() fn.on_change() end,
-    on_close = function() end,
-    on_submit = function(value)
-      local ok, err = pcall(fn.submit, value)
-      if not ok then
-        pcall(vim.notify, err, vim.log.levels.ERROR)
-      end
+local configs = M.utils.input.fn.build_config(
+  state.cmdline.prompt,
+  function() end,
+  function() fn.on_change() end,
+  function(value)
+    local ok, err = pcall(fn.submit, value)
+    if not ok then
+      pcall(vim.notify, err, vim.log.levels.ERROR)
     end
-  }
-}
+  end,
+  ""
+)
 
 M.utils.command_bar.open = function()
-  M.utils.command_bar.input = nui(configs.popup, configs.input)
+  M.utils.command_bar.input = M.utils.input.fn.prepare_input(configs)
   M.utils.command_bar.input:mount()
 
   vim.bo.omnifunc = 'v:lua.autocomp_omnifunc'
@@ -393,4 +373,3 @@ end
 
 autocomp_omnifunc = M.utils.command_bar.omnifunc
 
-M.deps.nui = { package = nui, name = 'nui.input' }
