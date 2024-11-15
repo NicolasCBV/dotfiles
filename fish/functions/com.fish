@@ -1,4 +1,4 @@
-function com --wraps='git commit -m' --description 'alias com=git commit -m'
-  git commit -m $argv
+function com --wraps=git_commit --description 'alias com=git_commit'
+  git_commit $argv
         
 end

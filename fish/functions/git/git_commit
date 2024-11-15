@@ -1,0 +1,7 @@
+#!/bin/bash
+
+commit_args=$1
+
+echo "Using fish shortcut 'com', equivalent of 'git commit'"
+git commit $commit_args
+

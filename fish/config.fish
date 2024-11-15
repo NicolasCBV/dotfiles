@@ -20,25 +20,42 @@ if status --is-interactive
         end
     end
 
-    if [ -n "$SSH_AGENT_PID" ] 
-        ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
-        if [ $status -eq 0 ]
-            test_identities
-        end  
-    else
-        if [ -f $SSH_ENV ]
-            . $SSH_ENV > /dev/null
-        end  
-        ps -ef | grep $SSH_AGENT_PID | grep -v grep | grep ssh-agent > /dev/null
-        if [ $status -eq 0 ]
-            test_identities
-        else 
-            start_agent
-        end  
+    function handle_ssh
+        if [ -n "$SSH_AGENT_PID" ] 
+            ps -ef | grep $SSH_AGENT_PID | grep ssh-agent > /dev/null
+            if [ $status -eq 0 ]
+                test_identities
+            end  
+        else
+            if [ -f $SSH_ENV ]
+                . $SSH_ENV > /dev/null
+            end  
+            ps -ef | grep $SSH_AGENT_PID | grep -v grep | grep ssh-agent > /dev/null
+            if [ $status -eq 0 ]
+                test_identities
+            else 
+                start_agent
+            end  
+        end
     end
+
+    function handle_npm_env
+        setenv NPM_DIR $HOME/.npm-global
+        if not test -d $NPM_DIR
+            echo "Could not find .npm-global on home directory, creating it!"
+            mkdir $HOME/.npm-global
+            npm config set prefix '~/.npm-global'
+        end
+    end
+
+    handle_ssh
+    handle_npm_env
 end
 
 bass source '${HOME}/tools/google-cloud-sdk/path.bash.inc'
 bass source '${HOME}/tools/google-cloud-sdk/completion.bash.inc'
 
 set PATH $PATH $HOME/.local/bin /home/nicolas/go/bin
+set PATH $PATH $HOME/.npm-global/bin
+
+
