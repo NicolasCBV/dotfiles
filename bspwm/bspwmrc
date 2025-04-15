@@ -29,5 +29,6 @@ bspc config focus_follows_pointer true
 ${HOME}/.fehbg
 picom --config ${HOME}/.config/picom/picom.conf &
 conky -c ${HOME}/.config/conky/conkyrc.lua &
+/usr/bin/xss-lock /usr/bin/screen-locker.lock &
 /usr/bin/numlockx on
 ${HOME}/.config/devol-polybar/launch.sh &

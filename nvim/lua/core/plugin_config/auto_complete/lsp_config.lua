@@ -25,7 +25,7 @@ masonlsp.setup({
     "lua_ls",
     "omnisharp",
     "omnisharp_mono",
-    "tsserver",
+    "ts_ls",
     "dockerls",
     "terraformls"
   }

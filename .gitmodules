@@ -1,3 +1,8 @@
 [submodule "devol-polybar"]
 	path = devol-polybar
 	url = https://github.com/NicolasCBV/devol-polybar
+
+[submodule "minimalist-conquer"]
+	path = minimalist-conquer
+	url = https://github.com/NicolasCBV/minimalist-conquer.git
+
