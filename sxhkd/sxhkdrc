@@ -6,6 +6,10 @@
 super + Return
 	xfce4-terminal
 
+# browser
+super + b
+	brave
+
 # postman
 super + p
 	postman
