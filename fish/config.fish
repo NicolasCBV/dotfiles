@@ -52,10 +52,10 @@ if status --is-interactive
     handle_npm_env
 end
 
-bass source '${HOME}/tools/google-cloud-sdk/path.bash.inc'
-bass source '${HOME}/tools/google-cloud-sdk/completion.bash.inc'
+bass source '/opt/google-cloud-cli/path.bash.inc'
+bass source '/opt/google-cloud-cli/completion.bash.inc'
+bass source '/usr/share/nvm/init-nvm.sh'
 
 set PATH $PATH $HOME/.local/bin /home/nicolas/go/bin
 set PATH $PATH $HOME/.npm-global/bin
-
 
