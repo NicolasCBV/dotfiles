@@ -19,7 +19,6 @@ masonlsp.setup({
     "clangd",
     "html",
     "cssls",
-    "csharp_ls",
     "angularls",
     "jdtls",
     "lua_ls",

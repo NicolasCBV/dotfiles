@@ -8,4 +8,3 @@ vim.o.shiftwidth=4
 vim.o.smarttab=true
 vim.o.softtabstop=4
 vim.cmd([[colorscheme github_dark_default]])
-

@@ -28,6 +28,9 @@ local state = {
 }
 
 M.utils.command_bar.input = nil
+vim.g.autocomp_omnifunc = function(start, base)
+  return M.utils.command_bar.omnifunc(start, base)
+end
 
 state.prompt_content = state.cmdline.prompt
 state.prompt_length = state.cmdline.prompt:len()
@@ -49,7 +52,11 @@ M.utils.command_bar.open = function()
   M.utils.command_bar.input = M.utils.input.fn.prepare_input(configs)
   M.utils.command_bar.input:mount()
 
-  vim.bo.omnifunc = 'v:lua.autocomp_omnifunc'
+  vim.api.nvim_buf_set_option(
+    M.utils.command_bar.input.bufnr,
+    'omnifunc',
+    'v:lua.vim.g.autocomp_omnifunc'
+  )
 
   if state.cmdline.enable_keymaps then
     fn.keymaps()
