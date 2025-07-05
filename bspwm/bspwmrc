@@ -26,6 +26,8 @@ bspc config focused_border_color "#8C8C8C"
 bspc config normal_border_color "#3F3F46"
 bspc config focus_follows_pointer true
 
+xsetroot -cursor_name left_ptr
+
 ${HOME}/.fehbg
 picom --config ${HOME}/.config/picom/picom.conf &
 conky -c ${HOME}/.config/conky/conkyrc.lua &
