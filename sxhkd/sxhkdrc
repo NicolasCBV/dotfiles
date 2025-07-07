@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	xfce4-terminal
+	alacritty
 
 # browser
 super + b
@@ -31,7 +31,7 @@ super + @space
 	dmenu_run
 
 super + Escape
-	${HOME}/.config/rofi/powermenu/type-5/powermenu.sh
+	${HOME}/.config/rofi/powermenu/type-2/powermenu.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
