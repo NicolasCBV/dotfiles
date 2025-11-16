@@ -18,6 +18,21 @@ M.deps.dap.langs = {
   }
 }
 
+for _, adapter in ipairs({"pwa-node"}) do
+  M.deps.dap.package.adapters[adapter] = {
+    type = "server",
+    host = "localhost",
+    port = "${port}",
+    executable = {
+      command = "node",
+      args = {
+         os.getenv('HOME') .. '/.local/share/vscode-js-debug/out/src/vsDebugServer.js',
+         "${port}"
+      }
+    }
+  }  
+end
+
 for _, lang in ipairs(M.deps.dap.langs.js_based_langs) do
   M.deps.dap.package.configurations[lang] = {
     {

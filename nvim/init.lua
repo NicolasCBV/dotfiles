@@ -1,3 +1,4 @@
+-- luacheck: globals M
 M = {}
 
 require("core.keymaps")
@@ -7,3 +8,4 @@ require("core.default_config")
 require("core.keymaps")
 require("core.parse-keymaps")
 
+return M

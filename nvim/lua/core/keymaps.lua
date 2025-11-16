@@ -74,6 +74,3 @@ vim.api.nvim_set_keymap('v', '<C-Left>', ":'<,'><<CR>gv", { noremap = true, sile
 
 
 return M
-
-
-

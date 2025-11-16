@@ -1,0 +1,2 @@
+-- luacheck: globals M
+M = {}
