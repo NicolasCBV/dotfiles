@@ -1,0 +1,2 @@
+/cred/nicolas	IN_MODIFY,IN_CREATE,IN_DELETE,IN_MOVE	/usr/bin/sync-cred
+/opt/obsidian/nicolas/**/*	IN_MODIFY,IN_CREATE,IN_DELETE,IN_MOVE	/usr/bin/sync-obsidian

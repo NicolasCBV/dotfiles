@@ -1,0 +1,34 @@
+configs:
+  - name: user
+    repo: /.borg/user
+    fault_tolerant_mode: true
+    last_backup_max_age: 30d
+    storage:
+      encryption: none
+      encryption_passphrase: ~
+      compress: auto,zstd,4
+    retention:
+      keep_last: 1
+      keep_hourly: 0
+      keep_daily: 1
+      keep_weekly: 2
+      keep_monthly: 4
+      keep_yearly: 2
+    exclude_patterns: []
+
+  - name: system
+    repo: /.borg/system
+    fault_tolerant_mode: true
+    last_backup_max_age: 30d
+    storage:
+      encryption: none
+      encryption_passphrase: ~
+      compression: auto,zstd,1
+    retention:
+      keep_last: 1
+      keep_hourly: 0
+      keep_daily: 1
+      keep_weekly: 2
+      keep_monthly: 4
+      keep_yearly: 2
+    exclude_patterns: []

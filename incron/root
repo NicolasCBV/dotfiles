@@ -1,0 +1,2 @@
+/.borg/system	IN_MODIFY,IN_CREATE,IN_DELETE,IN_MOVE	  /usr/bin/sync-machine system
+/.borg/user	IN_MODIFY,IN_CREATE,IN_DELETE,IN_MOVE	  /usr/bin/sync-machine user
