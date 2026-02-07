@@ -64,6 +64,15 @@ require("packer").startup(function(use)
        "neovim/nvim-lspconfig"
     }
 
+    use {
+      "mxsdev/nvim-dap-vscode-js",
+      {
+        "microsoft/vscode-js-debug",
+        opt = true,
+        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+      }
+    }
+
     -- color scheme
     use "projekt0n/github-nvim-theme"
 

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+$script_dir/rclone-sync \
+	-p /var/log/nicolas/rclone-cred-backup.log \
+	-r "Credentials Backup" \
+	-b "backup-credentials" \
+	-s "Credenciais sincronizadas em nuvem com sucesso!" \
+	-e "Não foi possível sincronizar credenciais em nuvem!" \
+	-d /cred

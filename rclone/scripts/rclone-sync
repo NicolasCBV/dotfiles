@@ -1,0 +1,61 @@
+#!/bin/bash
+
+function usage() {
+	echo "Usage: [-p log path] [-r remote] [-b bucket] [-d directory] [-e Error message that will be used on notification event message] [-s Successful message that will be used on notification event message]"
+}
+
+function notify() {
+	title=$1
+	msg=$2
+	priority=$3
+	username=$(whoami)
+	if [ "${username}" == "nicolas" ]; then
+		notify-send "${title}" "${msg}" --urgency "${priority}"
+	else
+		runuser -l nicolas -c \
+			"DISPLAY=${DISPLAY} DBUS_SESSION_BUS_ADDRESS=${DBUS_SESSION_BUS_ADDRESS} \
+				notify-send --urgency ${priority} '${title}' '${msg}'"
+	fi
+}
+
+log_path=""
+remote=""
+bucket=""
+dir=""
+err_msg="Não foi possível sincronizar dados em nuvem!"
+successful_msg=""
+
+while getopts ":p:b:r:d:n:e:s:h" opt; do
+	case $opt in
+		p) log_path="$OPTARG" ;;
+		b) bucket="$OPTARG" ;;
+		r) remote="$OPTARG" ;;
+		d) dir="$OPTARG" ;;
+		e) err_msg="$OPTARG" ;;
+		s) successful_msg="$OPTARG" ;;
+		h) usage && exit 0 ;;
+	esac
+done
+
+if [ -z "${log_path}" ] || [ -z "${remote}" ] || [ -z "${bucket}" ] || [ -z "${dir}" ]; then
+	usage; exit 1
+fi
+
+username=$(who | grep '(:0)' | awk '{print $1}')
+user_id=$(id -u "${username}")
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${user_id}/bus
+
+rclone sync "${dir}" "${remote}:${bucket}" --log-level NOTICE --log-file ${log_path}
+status=$?
+
+if [ $((status)) -ne 0 ]; then
+	if [ -z "${nonotify}" ]; then
+		notify "Rclone" "${err_msg}" "critical"
+	fi
+	echo "Could not synchronize with Cloud Storage on bucket '${bucket}'. Please check: ${log_path}" | systemd-cat -t rclone -p err
+else
+	if [ ! -z "${successful_msg}" ]; then
+		notify "Rclone" "${successful_msg}" "normal"
+	fi
+	echo "Successfully synchronized with Cloud Storage on bucket '${bucket}'!" | systemd-cat -t rclone -p notice
+fi

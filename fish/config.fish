@@ -54,8 +54,7 @@ end
 
 bass source '/opt/google-cloud-cli/path.bash.inc'
 bass source '/opt/google-cloud-cli/completion.bash.inc'
-bass source '/usr/share/nvm/init-nvm.sh'
 
 set PATH $PATH $HOME/.local/bin /home/nicolas/go/bin
-set PATH $PATH $HOME/.npm-global/bin
+set PATH $PATH $HOME/.nvm/versions/node/v22.17.0/bin/npm
 

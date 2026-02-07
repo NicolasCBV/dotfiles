@@ -35,3 +35,4 @@ conky -c ${HOME}/.config/conky/conkyrc.lua &
 /usr/bin/numlockx on
 ${HOME}/.config/devol-polybar/launch.sh &
 xsettingsd &
+gcalcli_reminder &

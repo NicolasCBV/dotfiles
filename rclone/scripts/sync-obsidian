@@ -1,0 +1,21 @@
+#!/bin/bash
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+locker="/tmp/obsidian-snapper.lock"
+if mkdir "${locker}" 2>/dev/null; then
+	trap 'rm -rf "$locker"' EXIT
+else
+	echo "⚠️ The bucket 'obsidian-snapper' is already being synchronized!" >&2
+	exit 1
+fi
+
+sleep 5
+
+$script_dir/rclone-sync \
+	-p /var/log/nicolas/rclone-obsidian-backup.log \
+	-r "Obsidian Backup" \
+	-b "backup-obsidian/nicolas" \
+	-e "Não foi possível sincronizar anotações em nuvem!" \
+	-d /opt/obsidian/nicolas \
+	-n

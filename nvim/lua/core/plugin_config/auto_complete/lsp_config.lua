@@ -39,7 +39,7 @@ lsp("ts_ls", {
   capabilities = M.utils.lsp.capabilities,
   on_attach = M.utils.lsp.on_attach,
   filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact", "vue" },
-  root_dir = M.utils.lsp.find_project_root,
+  -- root_dir = M.utils.lsp.find_project_root,
   ignore = { "node_modules/**", "dist/**", "build/**" },
   init_options = {
     plugins = {
@@ -112,5 +112,5 @@ lsp("lua_ls", {
 lsp("clangd", {
   capabilities = M.utils.lsp.capabilities,
   on_attach = M.utils.lsp.on_attach,
-  root_dir = M.utils.lsp.find_project_root,
+  ignore = { "dist/**", "build/**", "cache/**" },
 })
