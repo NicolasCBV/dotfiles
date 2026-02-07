@@ -6,3 +6,6 @@
 	path = minimalist-conquer
 	url = https://github.com/NicolasCBV/minimalist-conquer.git
 
+[submodule "sddm/themes/sugar-light"]
+	path = sddm/themes/sugar-light
+	url = https://github.com/MarianArlt/sddm-sugar-light.git

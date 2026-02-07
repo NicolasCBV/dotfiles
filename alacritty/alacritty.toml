@@ -1,0 +1,63 @@
+[window]
+opacity = 0.8
+
+padding.x = 5
+padding.y = 5
+
+decorations = "Full"
+decorations_theme_variant = "Dark"
+
+[colors.primary]
+background = "#000000"
+foreground = "#FFFFFF"
+
+[font.normal]
+family = "Source Code Pro"
+style = "Regular"
+
+[font.bold]
+family = "Source Code Pro"
+style = "Bold"
+
+[font.italic]
+family = "Source Code Pro"
+style = "Italic"
+
+[font.bold_italic]
+family = "Source Code Pro"
+style = "Bold Italic"
+
+[font]
+size = 10.0
+
+[colors.normal]
+black = "#1E1E2E"
+red = "#F7768E"
+green = "#9ECE6A"
+yellow = "#E0AF68"
+blue = "#7AA2F7"
+magenta = "#BB9AF7"
+cyan = "#7DCFFF"
+white = "#A9B1D6"
+
+[colors.bright]
+black = "#414868"
+red = "#F7768E"
+green = "#9ECE6A"
+yellow = "#E0AF68"
+blue = "#7AA2F7"
+magenta = "#BB9AF7"
+cyan = "#7DCFFF"
+white = "#FF00FF"
+
+[colors.cursor]
+text = "#1E1E2E"
+cursor = "#C0CAF5"
+
+[colors.selection]
+text = "#C0CAF5"
+background = "#414868"
+
+[colors.vi_mode_cursor]
+text = "#1E1E2E"
+cursor = "#FF9E64"
