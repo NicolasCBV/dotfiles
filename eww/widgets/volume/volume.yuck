@@ -1,0 +1,148 @@
+;; Main widget
+(defwidget volume []
+  (eventbox
+    :onscroll "~/.config/eww/scripts/volume/volume-scroll.sh {}"
+    (button 
+      :class "volume ${audio_muted ? 'muted' : ''}"
+      :onclick "${EWW_CMD} open audio-popup"
+      "${volume_icon} ${volume_percent}%")))
+
+;; Volume popup
+(defwindow audio-popup
+  :monitor 0
+  :geometry (geometry 
+    :x "10px"
+    :y "10px"
+    :anchor "top right")
+  :stacking "overlay"
+  :windowtype "normal"
+  :focusable true
+  (eventbox
+    :onhoverlost "${EWW_CMD} close audio-popup"
+    (scroll
+      :height 250
+      :vscroll false
+      :hscroll false
+      (box
+        :class "audio-popup"
+        :orientation "v"
+        :space-evenly false
+        :spacing 15
+        
+        ; Cabeçalho
+        (box
+          :class "audio-header"
+          :orientation "h"
+          :spacing 10
+          (label :class "popup-title" :text "Controles de Áudio")
+          (button 
+            :class "popup-close"
+            :halign "end"
+            :onclick "${EWW_CMD} close audio-popup"
+            "✕"))
+        
+        ; ========== Speakers ==========
+        (box
+          :class "audio-section"
+          :orientation "v"
+          :spacing 10
+          
+          (label :class "section-title" :text " Alto-falantes" :halign "start")
+          
+          (box
+            :orientation "h"
+            :spacing 10
+            :space-evenly false
+            
+            ; Botão de mute
+            (button
+              :class "audio-mute-btn ${audio_muted ? 'muted' : ''}"
+              :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+              volume_icon)
+            
+            (scale
+              :class "audio-slider"
+              :value volume_percent
+              :min 0
+              :max 100
+              :hexpand true
+              :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+            
+            (label 
+              :class "audio-percent"
+              :text "${volume_percent}%")))
+        
+        ; ========== Microphone ==========
+        (box
+          :class "audio-section"
+          :orientation "v"
+          :spacing 10
+          
+          (label :class "section-title" :text " Microfone" :halign "start")
+          
+          (box
+            :orientation "h"
+            :spacing 10
+            :space-evenly false
+            
+            (button
+              :class "audio-mute-btn ${mic_muted ? 'muted' : ''}"
+              :onclick "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+              mic_icon)
+            
+            (scale
+              :class "audio-slider"
+              :value mic_percent
+              :min 0
+              :max 150
+              :hexpand true
+              :onchange "~/.config/eww/scripts/volume/set-mic-volume.sh {}")
+            
+            (label 
+              :class "audio-percent"
+              :text "${mic_percent}%")))))))
+
+(defpoll volume_percent 
+  :interval "150ms"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'`)
+
+(defpoll audio_muted
+  :interval "150ms"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo true || echo false`)
+
+(defpoll volume_icon 
+  :interval "150ms"
+  `
+    muted=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 1 || echo 0)
+    volume=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}')
+    
+    if [ $muted -eq 1 ]; then
+      echo "󰖁"
+    elif [ $volume -gt 70 ]; then
+      echo "墳"
+    elif [ $volume -gt 30 ]; then
+      echo "奔"
+    else
+      echo "奄"
+    fi
+  `)
+
+(defpoll mic_percent 
+  :interval "150ms"
+  `wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print int($2 * 100)}'`)
+
+(defpoll mic_muted
+  :interval "150ms"
+  `wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo true || echo false`)
+
+(defpoll mic_icon 
+  :interval "150ms"
+  `
+    muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 1 || echo 0)
+    
+    if [ $muted -eq 1 ]; then
+      echo ""
+    else
+      echo ""
+    fi
+  `)

@@ -1,0 +1,24 @@
+.workspaces {
+  background-color: $primary50;
+  padding: 5px 16px;
+  border-radius: 0 0 $radius $radius;
+  
+  button {
+    padding: 6px 9px;
+    margin: 0 4px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: $primary200;
+    transition: all 0.3s ease;
+    
+    &.active {
+      background-color: $primary250;
+      color: $primary50;
+    }
+    
+    &.occupied:not(.active) {
+      background-color: $primary150; 
+      color: $primary350;
+    }
+  }
+}

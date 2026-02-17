@@ -1,0 +1,102 @@
+.audio-popup {
+  background-color: $primary50;
+  border: 2px solid $primary150;
+  border-radius: $radius;
+  padding: 12px;
+  min-width: 320px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.audio-header {
+  .popup-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary450;
+  }
+  
+  .popup-close {
+    color: $primary300;
+    font-size: 16px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: $primary150;
+      color: $primary450;
+    }
+  }
+}
+
+.audio-section {
+  background-color: $primary100;
+  padding: 12px;
+  border-radius: 10px;
+  
+  .section-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: $primary350;
+  }
+}
+
+.audio-mute-btn {
+  min-width: 28px;
+  min-height: 28px;
+  background-color: $primary150;
+  color: $primary350;
+  font-size: 36px;
+  border-radius: 8px;
+  
+  &:hover {
+    background-color: $primary200;
+    color: $primary450;
+  }
+  
+  &.muted {
+    background-color: #f38ba8;
+    color: $primary50;
+  }
+}
+
+.audio-slider {
+  trough {
+    min-height: 3px;
+    border-radius: $radius;
+    background-color: $primary150;
+  }
+  
+  highlight {
+    background-color: $primary250;
+    border-radius: $radius;
+  }
+  
+  slider {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    background-color: $primary450;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.audio-percent {
+  color: $primary450;
+  font-weight: bold;
+  font-size: 14px;
+  min-width: 45px;
+}
+
+.audio-presets {
+  button {
+    background-color: $primary50;
+    color: $primary300;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    
+    &:hover {
+      background-color: $primary150;
+      color: $primary450;
+    }
+  }
+}

@@ -1,0 +1,1857 @@
+$primary50: #212529;
+$primary100: #343a40;
+$primary150: #495057;
+$primary200: #6c757d;
+$primary250: #adb5bd;
+$primary300: #ced4da;
+$primary350: #dee2e6;
+$primary400: #e9ecef;
+$primary450: #f8f9fa;
+$radius: 16px;
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 12px;
+}
+
+.exterior-badge {
+  padding: 5px 10px;
+  font-size: 8px;
+}
+
+.bar {
+  color: $primary450;
+  padding: 0 16px;
+}
+
+.right {
+  border-radius: 0 0 $radius $radius;
+}
+
+.left {
+  background-color: $primary50;
+  border-radius: 0 0 $radius $radius;
+  padding: 5px 16px;
+}
+
+.window-title {
+  color: $primary350;
+  padding: 0 15px;
+  font-style: italic;
+}
+
+.clock {
+  font-size: 16px;
+  font-weight: bold;
+  color: $primary450;
+}
+
+.time {
+  color: $primary250;
+}
+
+.system-info {
+  background-color: $primary100;
+  padding: 5px 10px;
+  border-radius: $radius;
+  
+  label {
+    color: $primary300;
+  }
+}
+
+.volume {
+  background-color: $primary100;
+  padding: 5px 10px;
+  border-radius: $radius;
+  
+  button {
+    color: $primary350;
+    
+    &:hover {
+      color: $primary450;
+    }
+  }
+}
+/* ============================================================================
+   WIFI WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* WiFi widget (bar icon) */
+.wifi {
+  padding: 8px 12px;
+  background: #343a40;
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wifi label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wifi:hover {
+  background: #495057;
+}
+
+.wifi.connected {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.wifi.connected label {
+  color: #3b82f6;
+}
+
+.wifi.disconnected label {
+  color: #adb5bd;
+}
+
+/* ============================================================================
+   WIFI POPUP
+   ============================================================================ */
+
+.wifi-popup {
+  min-width: 360px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.wifi-popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.wifi-popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.wifi-close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wifi-close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.wifi-close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* WiFi header (icon + SSID) */
+.wifi-header {
+  margin-bottom: 16px;
+}
+
+.wifi-icon-large {
+  font-size: 72px;
+  color: #f8f9fa;
+}
+
+.wifi-ssid-large {
+  color: #f8f9fa;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.wifi-status-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* WiFi signal bar */
+.wifi-bar-container {
+  margin-bottom: 16px;
+}
+
+.wifi-signal-bar {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.wifi-signal-bar trough {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.wifi-signal-bar highlight,
+.wifi-signal-bar progress {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  border-radius: 999px;
+  min-height: 8px;
+}
+
+/* WiFi info grid */
+.wifi-info-grid {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.wifi-info-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wifi-info-value {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Separator */
+.wifi-separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+  margin: 12px 0;
+}
+
+/* Controls section */
+.wifi-section-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.wifi-action-btn {
+  padding: 12px 16px;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wifi-action-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.wifi-action-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+.wifi-action-btn.wifi-btn-connected {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.wifi-action-btn.wifi-btn-connected:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+}
+
+.wifi-action-btn.wifi-btn-connected label {
+  color: #ef4444;
+}
+
+.wifi-action-btn label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wifi-action-icon {
+  font-size: 18px;
+}
+
+/* Available networks list */
+.wifi-networks-list {
+  /* Container styles if needed */
+}
+
+/* Button focus states */
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   WIFI EMPTY STATE
+   ============================================================================ */
+
+.wifi-empty-state {
+  padding: 32px 24px;
+  background: #343a40;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.wifi-empty-icon {
+  font-size: 64px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.wifi-empty-title {
+  color: #f8f9fa;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wifi-empty-subtitle {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.wifi-empty-action-btn {
+  padding: 12px 24px;
+  background: #3b82f6;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 8px;
+}
+
+.wifi-empty-action-btn:hover {
+  background: #2563eb;
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.wifi-empty-action-btn:active {
+  background: #1d4ed8;
+}
+
+.wifi-empty-action-btn label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.wifi-empty-action-icon {
+  font-size: 18px;
+  color: #ffffff;
+}
+/* ============================================================================
+   BLUETOOTH WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* Bluetooth widget (bar icon) */
+.bluetooth {
+  padding: 8px 12px;
+  background: #343a40;
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bluetooth label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bluetooth:hover {
+  background: #495057;
+}
+
+.bluetooth.connected {
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.bluetooth.connected label {
+  color: #8b5cf6;
+}
+
+.bluetooth.disconnected label {
+  color: #adb5bd;
+}
+
+/* ============================================================================
+   BLUETOOTH POPUP
+   ============================================================================ */
+
+.bluetooth-popup {
+  min-width: 360px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.bluetooth-popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.bluetooth-popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.bluetooth-close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bluetooth-close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.bluetooth-close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Bluetooth header (icon + device name) */
+.bluetooth-header {
+  margin-bottom: 16px;
+}
+
+.bluetooth-icon-large {
+  font-size: 72px;
+  color: #f8f9fa;
+}
+
+.bluetooth-device-large {
+  color: #f8f9fa;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.bluetooth-status-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Bluetooth info grid */
+.bluetooth-info-grid {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.bluetooth-info-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bluetooth-info-value {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Separator */
+.bluetooth-separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+  margin: 12px 0;
+}
+
+/* Controls section */
+.bluetooth-section-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.bluetooth-action-btn {
+  padding: 12px 16px;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bluetooth-action-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.bluetooth-action-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+.bluetooth-action-btn.bluetooth-btn-connected {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.bluetooth-action-btn.bluetooth-btn-connected:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+}
+
+.bluetooth-action-btn.bluetooth-btn-connected label {
+  color: #ef4444;
+}
+
+.bluetooth-action-btn label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bluetooth-action-icon {
+  font-size: 18px;
+}
+
+/* Device list items */
+.bluetooth-device-item {
+  padding: 12px;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bluetooth-device-item:hover {
+  background: #495057;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.bluetooth-device-item:active {
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.bluetooth-device-item.connected {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.bluetooth-device-item.paired {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.device-icon {
+  font-size: 32px;
+  color: #f8f9fa;
+  min-width: 32px;
+}
+
+.bluetooth-device-item.connected .device-icon {
+  color: #8b5cf6;
+}
+
+.device-name {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.device-status {
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bluetooth-device-item.connected .device-status {
+  color: #8b5cf6;
+}
+
+.device-address {
+  color: #6c757d;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.device-battery {
+  color: #22c55e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Button focus states */
+button:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   BLUETOOTH EMPTY STATE
+   ============================================================================ */
+
+.bluetooth-empty-state {
+  padding: 32px 24px;
+  background: #343a40;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.bluetooth-empty-icon {
+  font-size: 64px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.bluetooth-empty-title {
+  color: #f8f9fa;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.bluetooth-empty-subtitle {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.bluetooth-empty-action-btn {
+  padding: 12px 24px;
+  background: #8b5cf6;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 8px;
+}
+
+.bluetooth-empty-action-btn:hover {
+  background: #7c3aed;
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.bluetooth-empty-action-btn:active {
+  background: #6d28d9;
+}
+
+.bluetooth-empty-action-btn label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bluetooth-empty-action-icon {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+/* ============================================================================
+   SCANNING STATE
+   ============================================================================ */
+
+.bluetooth-scanning {
+  padding: 16px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.bluetooth-scanning-text {
+  color: #8b5cf6;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bluetooth-scanning-icon {
+  font-size: 16px;
+  color: #8b5cf6;
+  animation: spin 2s linear infinite;
+}
+/* ============================================================================
+   BATTERY WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* Battery widget (bar icon) */
+.battery {
+  padding: 8px 12px;
+  background: #343a40;
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.battery label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.battery:hover {
+  background: #495057;
+}
+
+.battery.charging {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.battery.charging label {
+  color: #3b82f6;
+}
+
+.battery.full {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.battery.full label {
+  color: #10b981;
+}
+
+.battery.discharging label {
+  color: #f8f9fa;
+}
+
+/* ============================================================================
+   BATTERY POPUP
+   ============================================================================ */
+
+.battery-popup {
+  min-width: 320px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Battery header (icon + percentage) */
+.battery-header {
+  margin-bottom: 16px;
+}
+
+.battery-icon-large {
+  font-size: 72px;
+  color: #f8f9fa;
+}
+
+.battery-percent-large {
+  color: #f8f9fa;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.battery-status-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Battery bar (progress) */
+.battery-bar-container {
+  margin-bottom: 16px;
+}
+
+.battery-bar {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.battery-bar trough {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.battery-bar highlight,
+.battery-bar progress {
+  background: linear-gradient(90deg, #22c55e, #eab308);
+  border-radius: 999px;
+  min-height: 8px;
+}
+
+/* Battery info grid */
+.battery-info-grid {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.info-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Separator */
+.separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+}
+
+/* Power profile section */
+.power-profile-section {
+  /* Container styles if needed */
+}
+
+.section-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.power-profile-btn {
+  padding: 12px;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.power-profile-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.power-profile-btn.active {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+}
+
+.power-profile-btn.active label {
+  color: #3b82f6;
+}
+
+.power-profile-btn label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.profile-icon {
+  font-size: 18px;
+}
+
+/* Button focus states */
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+.audio-popup {
+  background-color: $primary50;
+  border: 2px solid $primary150;
+  border-radius: $radius;
+  padding: 12px;
+  min-width: 320px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.audio-header {
+  .popup-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: $primary450;
+  }
+  
+  .popup-close {
+    color: $primary300;
+    font-size: 16px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: $primary150;
+      color: $primary450;
+    }
+  }
+}
+
+.audio-section {
+  background-color: $primary100;
+  padding: 12px;
+  border-radius: 10px;
+  
+  .section-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: $primary350;
+  }
+}
+
+.audio-mute-btn {
+  min-width: 28px;
+  min-height: 28px;
+  background-color: $primary150;
+  color: $primary350;
+  font-size: 36px;
+  border-radius: 8px;
+  
+  &:hover {
+    background-color: $primary200;
+    color: $primary450;
+  }
+  
+  &.muted {
+    background-color: #f38ba8;
+    color: $primary50;
+  }
+}
+
+.audio-slider {
+  trough {
+    min-height: 3px;
+    border-radius: $radius;
+    background-color: $primary150;
+  }
+  
+  highlight {
+    background-color: $primary250;
+    border-radius: $radius;
+  }
+  
+  slider {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    background-color: $primary450;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.audio-percent {
+  color: $primary450;
+  font-weight: bold;
+  font-size: 14px;
+  min-width: 45px;
+}
+
+.audio-presets {
+  button {
+    background-color: $primary50;
+    color: $primary300;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    
+    &:hover {
+      background-color: $primary150;
+      color: $primary450;
+    }
+  }
+}
+/* ============================================================================
+   SPOTIFY WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* Spotify widget (bar icon) */
+.spotify {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  margin-top: 3px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// /* ============================================================================
+//    SPOTIFY POPUP
+//    ============================================================================ */
+
+.spotify-popup {
+  min-width: 360px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.spotify-popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.spotify-popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.spotify-close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spotify-close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.spotify-close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Album cover large */
+.spotify-cover-large {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  min-width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Track info */
+.spotify-track-title {
+  color: #f8f9fa;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.spotify-track-artist {
+  color: #adb5bd;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.spotify-track-album {
+  color: #6c757d;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* Progress bar */
+.spotify-progress-container {
+  margin: 8px 0 4px 0;
+}
+
+.spotify-progress-bar {
+  min-height: 6px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.spotify-progress-bar trough {
+  min-height: 6px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.spotify-progress-bar highlight,
+.spotify-progress-bar progress {
+  background: #1DB954;
+  border-radius: 999px;
+  min-height: 6px;
+}
+
+.spotify-time-label {
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Control buttons */
+.spotify-controls {
+  margin: 4px 0;
+}
+
+.spotify-control-btn {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 90%;
+  color: #f8f9fa;
+  font-size: 20px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spotify-control-btn.spotify-play-btn {
+  min-width: 56px;
+  min-height: 56px;
+  background: #1DB954;
+  font-size: 24px;
+}
+
+.spotify-control-btn.spotify-play-btn:hover {
+  background: #1ed760;
+  border-color: rgba(29, 185, 84, 0.4);
+  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+}
+
+.spotify-control-btn.spotify-play-btn:active {
+  background: #1aa34a;
+}
+
+.spotify-control-btn label {
+  color: #f8f9fa;
+  font-size: 20px;
+}
+
+.spotify-control-btn.spotify-play-btn label {
+  color: #ffffff;
+  font-size: 24px;
+}
+
+/* Separator */
+.spotify-separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+  margin: 12px 0;
+}
+
+/* Volume control */
+.spotify-volume-container  {
+  trough {
+    min-height: 3px;
+    border-radius: $radius;
+    background-color: $primary150;
+  }
+  
+  highlight {
+    background-color: $primary250;
+    border-radius: $radius;
+  }
+  
+  slider {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    background-color: $primary450;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.spotify-section-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.spotify-volume-bar {
+  trough {
+    min-height: 6px;
+    background-color: #343a40;
+  }
+  
+  highlight {
+    background: linear-gradient(90deg, #1DB954, #1ed760);
+    min-height: 6px;
+  }
+  
+  slider {
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.spotify-volume-icon {
+  color: #f8f9fa;
+  font-size: 18px;
+}
+
+/* Additional controls */
+.spotify-action-btn {
+  padding: 6px 12px;
+  min-height: 40px;
+}
+
+.spotify-action-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.spotify-action-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+.spotify-action-btn label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.spotify-action-icon {
+  font-size: 18px;
+}
+
+/* Shuffle and repeat buttons */
+.spotify-mode-btn {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 8px;
+  padding: 0;
+}
+
+.spotify-mode-btn label {
+  padding: 0;
+  margin: 0;
+}
+
+.spotify-mode-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.spotify-mode-btn.active {
+  color: #1DB954;
+  background: rgba(29, 185, 84, 0.15);
+}
+
+.spotify-mode-btn.active:hover {
+  background: rgba(29, 185, 84, 0.25);
+}
+
+/* Button focus states */
+button:focus {
+  outline: 2px solid #1DB954;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   SPOTIFY EMPTY STATE
+   ============================================================================ */
+
+.spotify-empty-state {
+  padding: 32px 24px;
+  background: #343a40;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.spotify-empty-icon {
+  font-size: 64px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.spotify-empty-title {
+  color: #f8f9fa;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.spotify-empty-subtitle {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.spotify-empty-action-btn {
+  padding: 12px 24px;
+  background: #1DB954;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 8px;
+}
+
+.spotify-empty-action-btn:hover {
+  background: #1ed760;
+  border-color: rgba(29, 185, 84, 0.4);
+  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+}
+
+.spotify-empty-action-btn:active {
+  background: #1aa34a;
+}
+
+.spotify-empty-action-btn label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.spotify-empty-action-icon {
+  font-size: 18px;
+  color: #ffffff;
+}
+/* ============================================================================
+   CALENDAR WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* Calendar widget (bar icon) */
+.calendar {
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar label {
+  color: #f8f9fa;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.calendar:hover {
+  background: #495057;
+}
+
+.calendar-icon {
+  color: #f8f9fa;
+  font-size: 16px;
+}
+
+/* ============================================================================
+   CALENDAR POPUP
+   ============================================================================ */
+
+.calendar-popup {
+  min-width: 380px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.calendar-popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.calendar-popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.calendar-close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.calendar-close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Month/Year header */
+.calendar-header {
+  margin-bottom: 12px;
+}
+
+.calendar-month-year {
+  color: #f8f9fa;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.calendar-nav-btn {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #f8f9fa;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-nav-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.calendar-nav-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Weekday headers */
+.calendar-weekdays {
+  margin-bottom: 8px;
+  padding: 8px 0;
+  background: #343a40;
+  border-radius: 8px;
+}
+
+.calendar-weekday {
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Calendar grid */
+.calendar-grid {
+  /* Grid layout handled in yuck */
+}
+
+/* Day cells */
+.calendar-day {
+  min-width: 42px;
+  min-height: 42px;
+  padding: 0;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 2px;
+}
+
+.calendar-day.today {
+  background: #495057;
+  border-color: #3b82f6;
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.calendar-day.other-month {
+  color: #6c757d;
+  background: transparent;
+}
+
+.calendar-day.marked {
+  border: 2px solid;
+  font-weight: 700;
+}
+
+/* Separator */
+.calendar-separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+  margin: 12px 0;
+}
+
+/* Legend section */
+.calendar-legend {
+  margin-top: 12px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.calendar-legend-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.calendar-legend-item {
+  padding: 6px 0;
+}
+
+.calendar-legend-color {
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.calendar-legend-text {
+  color: #f8f9fa;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Quick info section */
+.calendar-info {
+  margin-bottom: 12px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.calendar-info-label {
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.calendar-info-value {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Empty state */
+.calendar-empty-legend {
+  padding: 16px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.calendar-empty-legend-text {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 400;
+}
+.notification-toast {
+  background: $primary50;
+  border: 1px solid $primary150;
+  border-left: 4px solid $primary200;
+  border-radius: 8px;
+  padding: 14px 16px;
+  
+  &.low {
+    border-left-color: $primary250;
+    
+    .toast-app-icon {
+      color: $primary250;
+    }
+  }
+  
+  &.normal {
+    border-left-color: #4a9eff;
+    
+    .toast-app-icon {
+      color: #4a9eff;
+    }
+  }
+  
+  &.critical {
+    border-left-color: #dc3545;
+    background: linear-gradient(to right, rgba(220, 53, 69, 0.08), $primary50);
+    
+    .toast-app-icon {
+      color: #dc3545;
+    }
+  }
+  
+  .toast-header {
+    margin-bottom: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 8px;
+   
+    .toast-app-icon {
+      font-size: 18px;
+    }
+   
+    .toast-app-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: $primary250;
+    }
+   
+    .toast-close {
+      color: $primary200;
+      padding: 4px 6px;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s;
+     
+      &:hover {
+        background: $primary150;
+        color: $primary300;
+      }
+    }
+  }
+  
+
+.toast-summary {
+  font-size: 14px;
+  font-weight: 600;
+  color: $primary300;
+  margin-left: 16px;
+}
+
+.toast-body {
+  font-size: 13px;
+  color: $primary250;
+  margin-top: 4px;
+  margin-left: 16px;
+  margin-bottom: 16px;
+}
+}
+
+.notifications {
+  background: $primary100;
+  padding: 8px 12px;
+  border-radius: 0 0 $radius $radius;
+  
+  &.has-unread {
+    .notification-icon {
+      color: $primary300;
+    }
+  }
+  
+  .notification-icon {
+    font-size: 18px;
+    color: $primary250;
+  }
+  
+  .notification-count {
+    background: $primary200;
+    color: $primary450;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+  }
+}
+
+.notifications-popup {
+  background: $primary50;
+  border: 1px solid $primary150;
+  border-radius: $radius;
+  padding: 16px;
+  min-width: 400px;
+  
+  .notifications-popup-header {
+    padding-bottom: 12px;
+    
+    .notifications-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: $primary300;
+    }
+    
+    .notifications-close-btn {
+      background: transparent;
+      color: $primary250;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 16px;
+      min-width: 32px;
+      min-height: 32px;
+    }
+  }
+  
+  .notifications-separator {
+    min-height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .notifications-list {
+    .notifications-empty {
+      padding: 40px 20px;
+      
+      .empty-icon {
+        font-size: 48px;
+        color: $primary200;
+      }
+      
+      .empty-text {
+        font-size: 14px;
+        color: $primary250;
+      }
+    }
+    
+    .notification-item {
+      background: $primary200;
+      border-radius: 4px;
+      padding: 12px;
+      border-left: 3px solid $primary200;
+      
+      &.unread {
+        border-left-color: $primary300;
+        background: $primary150;
+      }
+      
+      &.read {
+        opacity: 0.7;
+      }
+      
+      .notification-header {
+        margin-bottom: 6px;
+        
+        .notification-app {
+          font-size: 12px;
+          color: $primary250;
+          font-weight: 600;
+        }
+        
+        .notification-time {
+          font-size: 11px;
+          color: $primary350;
+          background: $primary100;
+          padding: 2px 8px;
+          border-radius: 6px;
+        }
+      }
+      
+      .notification-summary {
+        font-size: 14px;
+        font-weight: 600;
+        color: $primary350;
+        margin-bottom: 4px;
+      }
+      
+      .notification-body {
+        font-size: 13px;
+        color: $primary250;
+        margin-bottom: 8px;
+      }
+      
+      .notification-actions {
+        border-top: 1px solid $primary150;
+        
+        .action-button {
+          background: $primary150;
+          color: $primary250;
+          border-radius: 8px;
+          font-size: 14px;
+          min-width: 20px;
+          min-height: 20px;
+          padding: 4px;
+          
+          &.mark-read {
+            background: rgba(52, 168, 83, 0.15);
+            color: #34a853;
+            border: 1px solid rgba(52, 168, 83, 0.3);
+          }
+          
+          &.remove {
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+          }
+        }
+      }
+    }
+  }
+}
+
+.notifications-footer {
+  padding-top: 12px;
+  
+  .clear-all-button {
+    background: $primary150;
+    color: $primary250;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid $primary200;
+    min-height: 20px;
+  }
+  
+  .action-icon {
+    font-size: 16px;
+    color: $primary300;
+  }
+}
+.workspaces {
+  background-color: $primary50;
+  padding: 5px 16px;
+  border-radius: 0 0 $radius $radius;
+  
+  button {
+    padding: 6px 9px;
+    margin: 0 4px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: $primary200;
+    transition: all 0.3s ease;
+    
+    &.active {
+      background-color: $primary250;
+      color: $primary50;
+    }
+    
+    &.occupied:not(.active) {
+      background-color: $primary150; 
+      color: $primary350;
+    }
+  }
+}

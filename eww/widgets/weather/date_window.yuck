@@ -1,0 +1,34 @@
+(defwidget big_date_box []
+  (box
+    :class "big-date-box"
+    :orientation "v"
+    :style "background-color: rgba(160, 160, 178); min-width: 75px; min-height: 65px; padding: 8px 0px;"
+    :spacing 0
+    :space-evenly false
+    :valign "center"
+    
+    (label 
+      :class "big-date-number"
+      :style "font-family: 'Poppins Bold'; font-size: 40px; color: #21212e; margin-bottom: -2px;"
+      :text date_day)
+    
+    (label
+      :class "big-date-weekday"
+      :style "font-family: 'Finlandica'; font-size: 12px; color: #21212e;"
+      :text date_weekday)))
+
+(defpoll date_day :interval "1h"
+  `date +%d`)
+
+(defpoll date_weekday :interval "1h"
+  `date +%A | awk '{print toupper($0)}'`)
+
+(defwindow date_window
+  :monitor 0
+  :geometry (geometry
+    :x "44px"
+    :y "250px"
+    :anchor "bottom left")
+  :stacking "bg"
+  :windowtype "desktop"
+  (big_date_box))

@@ -1,0 +1,31 @@
+(defwidget weather_description_box []
+  (box
+    :class "weather-description-container"
+    :orientation "h"
+    :spacing 10
+    :space-evenly false
+    
+    (box
+      :class "weather-separator"
+      :style "background-color: rgba(160, 160, 178, 0.5); min-width: 2px; min-height: 34px;")
+    
+    (label
+      :class "weather-description-text"
+      :style "font-family: 'Poppins'; font-size: 11px; color: #21212e; line-height: 13px;"
+      :halign "start"
+      :wrap true
+      :text weather_description)))
+
+(defpoll weather_description :interval "5s"
+  `~/.config/eww/scripts/env/get-weather-description.sh`)
+
+(defwindow weather_description_window
+  :monitor 0
+  :geometry (geometry
+    :x "45px"
+    :y "130px"
+    :anchor "bottom left"
+    :width "350px")
+  :stacking "bg"
+  :windowtype "desktop"
+  (weather_description_box))

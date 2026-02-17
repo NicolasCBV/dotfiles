@@ -1,0 +1,123 @@
+(include "./widgets/spotify/spotify.yuck")
+(include "./widgets/battery/battery.yuck")
+(include "./widgets/volume/volume.yuck")
+(include "./widgets/weather/date_window.yuck")
+(include "./widgets/weather/weather_window.yuck")
+(include "./widgets/weather/greeting_window.yuck")
+(include "./widgets/weather/weather_description_window.yuck")
+(include "./widgets/wifi/wifi.yuck")
+(include "./widgets/bluetooth/bluetooth.yuck")
+(include "./widgets/workspaces/workspaces.yuck")
+(include "./widgets/map/map.yuck")
+(include "./widgets/calendar/calendar.yuck")
+(include "./widgets/notifications/notifications.yuck")
+(include "./widgets/notifications/notification-toast.yuck")
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "30px"
+    :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  (bar_layout))
+
+(defwidget bar_layout []
+  (centerbox
+    :class "bar"
+    :orientation "h"
+    
+    ;; Lado esquerdo
+    (box
+      :class "right"
+      :halign "start"
+      :spacing 10
+      :space-evenly false
+      (notifications)
+      (workspaces)
+      (docker)
+      (checkupdates))
+    
+    ;; Centro
+    (box
+      :halign "center"
+      (custom_calendar))
+    
+    ;; Lado direito
+    (box
+      :halign "end"
+      :spacing 8
+      :space-evenly false
+      (spotify)
+      (box
+       :halign "end"
+       :spacing 10
+       :space-evenly false
+       :class "left"
+       (bluetooth)
+       (wifi)
+       (system_info)
+       (volume)
+       (battery)))))
+
+;; Widget de título da janela ativa
+(defwidget window_title []
+  (label 
+    :class "window-title"
+    :text window_title_text
+    :limit-width 50))
+
+(defpoll window_title_text 
+  :interval "1s"
+  `hyprctl activewindow -j | jq -r '.title // "Desktop"'`)
+
+;; Widget de relógio
+(defwidget clock []
+  (label 
+    :class "clock"
+    :text clock_time))
+
+(defpoll clock_time 
+  :interval "10s"
+  "date '+%H:%M'")
+
+;; Widget de informações do sistema
+(defwidget system_info []
+  (box 
+    :class "system-info"
+    :spacing 10
+    (label :text "閭 ${cpu_usage}%")
+    (label :text " ${mem_usage}%")))
+
+(defpoll cpu_usage 
+  :interval "2s"
+  `LC_ALL=C mpstat 1 1 | awk '/Average/ {print int(100 - $NF)}'`)
+
+(defpoll mem_usage 
+  :interval "2s"
+  `free | grep Mem | awk '{print int($3/$2 * 100)}'`)
+
+;; Widget de checagem de updates
+(defwidget checkupdates []
+  (box
+    :class "exterior-badge"
+    (label :text "${updates_icon}")))
+
+;; Widget de checagem de container docker
+(defwidget docker []
+  (box
+    :class "exterior-badge"
+    (label :text "${docker_icon}")))
+
+(defpoll updates_icon
+  :interval "15s"
+  `~/.config/eww/scripts/misc/checkupdates.sh`)
+
+(defpoll docker_icon
+  :interval "15s"
+  `~/.config/eww/scripts/misc/docker.sh`)
+

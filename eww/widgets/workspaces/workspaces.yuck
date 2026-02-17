@@ -1,0 +1,16 @@
+;; Widget de workspaces (Hyprland)
+(defwidget workspaces []
+  (box 
+    :class "workspaces"
+    :orientation "h"
+    :spacing 5
+    (for ws in workspaces_data
+      (button 
+        :class "workspace ${ws.active ? 'active' : ''} ${ws.occupied ? 'occupied' : 'empty'}"
+        :onclick "hyprctl dispatch workspace ${ws.id}"
+        "${ws.id}"))))
+
+(defpoll workspaces_data 
+  :interval "100ms"
+  :initial "[]"
+  "~/.config/eww/scripts/workspaces/hypr-workspaces.sh")

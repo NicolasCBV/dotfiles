@@ -1,0 +1,214 @@
+;; ============================================
+;; BLUETOOTH WIDGET - Versão Melhorada
+;; ============================================
+
+;; Variáveis para o Bluetooth
+(defpoll bluetooth-status :interval "1s"
+  "~/.config/eww/scripts/bluetooth/bluetooth-status.sh")
+
+(defpoll bluetooth-devices :interval "2s"
+  "~/.config/eww/scripts/bluetooth/bluetooth-list.sh")
+
+;; Variável para hover state (opcional, para animações)
+(defvar bt-hover-device "")
+
+;; ============================================
+;; WIDGET DO BLUETOOTH NA BARRA
+;; ============================================
+(defwidget bluetooth []
+  (eventbox
+    :cursor "pointer"
+    :onclick "eww open bluetooth-popup"
+    (box
+      :class "bluetooth ${bluetooth-status}"
+      :space-evenly false
+      :spacing 8
+      (label
+        :text {bluetooth-status == "connected" ? "󰂯" : 
+               bluetooth-status == "on" ? "󰂯" : 
+               bluetooth-status == "disconnected" ? "󰂲" : 
+               "󰂲"}
+        :tooltip {bluetooth-status == "connected" ? "Bluetooth: Conectado" :
+                  bluetooth-status == "on" ? "Bluetooth: Ligado" :
+                  bluetooth-status == "disconnected" ? "Bluetooth: Desligado" :
+                  "Bluetooth: Indisponível"}))))
+
+;; ============================================
+;; POPUP DO BLUETOOTH
+;; ============================================
+(defwindow bluetooth-popup
+  :monitor 0
+  :geometry (geometry
+    :x "20px"
+    :y "10px"
+    :anchor "top right"
+    :width "380px")
+  :stacking "overlay"
+  :windowtype "dialog"
+  :wm-ignore false
+  (eventbox
+    :onhoverlost "eww close bluetooth-popup"
+    (box
+      :class "bluetooth-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 0
+      
+      ;; ========================================
+      ;; HEADER DO POPUP
+      ;; ========================================
+      (box
+        :class "bluetooth-popup-header"
+        :orientation "h"
+        :space-evenly false
+        (box
+          :orientation "h"
+          :spacing 8
+          :space-evenly false
+          :hexpand true
+          (label
+            :class "bluetooth-popup-icon"
+            :text "󰂯")
+          (label
+            :class "bluetooth-popup-title"
+            :text "Bluetooth"
+            :halign "start"))
+        (eventbox
+          :cursor "pointer"
+          (button
+            :class "bluetooth-close-btn"
+            :onclick "eww close bluetooth-popup"
+            (label :text "󰅖"))))
+      
+      ;; ========================================
+      ;; CONTROLES PRINCIPAIS
+      ;; ========================================
+      (box
+        :class "bluetooth-controls"
+        :orientation "v"
+        :spacing 12
+        :space-evenly false
+        
+        ;; Botões de ação
+        (box
+          :orientation "h"
+          :spacing 8
+          :space-evenly true
+          
+          ;; Botão Power (Ligar/Desligar)
+          (eventbox
+            :cursor "pointer"
+            (button
+              :class "bluetooth-action-btn ${bluetooth-status == 'connected' || bluetooth-status == 'on' ? 'active' : ''}"
+              :onclick "~/.config/eww/scripts/bluetooth/bluetooth-toggle.sh"
+              (box
+                :orientation "h"
+                :spacing 8
+                :space-evenly false
+                (label 
+                  :class "bluetooth-action-icon" 
+                  :text {bluetooth-status == "disconnected" ? "󰂯" : "󰂲"})
+                (label 
+                  :text {bluetooth-status == "disconnected" ? "Ligar" : "Desligar"}))))
+          
+          ;; Botão Scan (Escanear)
+          (eventbox
+            :cursor "pointer"
+            (button
+              :class "bluetooth-action-btn"
+              :onclick "~/.config/eww/scripts/bluetooth/bluetooth-scan.sh"
+              (box
+                :orientation "h"
+                :spacing 8
+                :space-evenly false
+                (label :class "bluetooth-action-icon" :text "󰐊")
+                (label :text "Escanear"))))
+          
+          ;; Botão Settings (Configurações)
+          (eventbox
+            :cursor "pointer"
+            (button
+              :class "bluetooth-action-btn"
+              :onclick "blueman-manager &"
+              :tooltip "Abrir gerenciador de Bluetooth"
+              (box
+                :orientation "h"
+                :spacing 8
+                :space-evenly false
+                (label :class "bluetooth-action-icon" :text "󰒓")
+                (label :text "Configuração")))))
+        
+        ;; Separador
+        (box :class "bluetooth-separator" :height 1))
+      
+      ;; ========================================
+      ;; SEÇÃO DE DISPOSITIVOS
+      ;; ========================================
+      (box
+        :class "bluetooth-devices-section"
+        :orientation "v"
+        :spacing 8
+        :space-evenly false
+        
+        ;; Header da seção
+        (box
+          :orientation "h"
+          :space-evenly false
+          (label
+            :class "bluetooth-section-title"
+            :text "Dispositivos"
+            :halign "start"
+            :hexpand true)
+          (label
+            :class "bluetooth-section-subtitle"
+            :text {bluetooth-status == "connected" ? "󰂱 Conectado" :
+                   bluetooth-status == "on" ? "󰂯 Disponível" :
+                   "󰂲 Desligado"}
+            :halign "end"))
+        
+        ;; Lista de dispositivos (scroll)
+        (scroll
+          :height 320
+          :vscroll true
+          :hscroll false
+          :vexpand true
+          (box
+            :orientation "v"
+            :spacing 4
+            (literal :content bluetooth-devices)))))))
+
+;; ============================================
+;; CSS CLASSES USADAS:
+;; ============================================
+;; .bluetooth                    - Container do ícone na barra
+;; .bluetooth.connected          - Quando há dispositivos conectados
+;; .bluetooth.on                 - Quando Bluetooth está ligado
+;; .bluetooth.disconnected       - Quando Bluetooth está desligado
+;; .bluetooth-popup              - Container principal do popup
+;; .bluetooth-popup-header       - Header com título e botão fechar
+;; .bluetooth-popup-icon         - Ícone no header
+;; .bluetooth-popup-title        - Título no header
+;; .bluetooth-close-btn          - Botão X para fechar
+;; .bluetooth-controls           - Container dos controles
+;; .bluetooth-action-btn         - Botões de ação
+;; .bluetooth-action-btn.active  - Botão ativo (power ligado)
+;; .bluetooth-action-icon        - Ícone nos botões de ação
+;; .bluetooth-separator          - Linha divisória
+;; .bluetooth-devices-section    - Seção de dispositivos
+;; .bluetooth-section-title      - Título "Dispositivos"
+;; .bluetooth-section-subtitle   - Status ao lado do título
+;; .bluetooth-device-item        - Item de dispositivo
+;; .bluetooth-device-item.connected - Dispositivo conectado
+;; .bluetooth-device-item.paired    - Dispositivo pareado
+;; .device-icon                  - Ícone do tipo de dispositivo
+;; .device-name                  - Nome do dispositivo
+;; .device-status                - Status (Conectado/Pareado)
+;; .device-battery               - Container da bateria
+;; .battery-icon                 - Ícone da bateria
+;; .device-arrow                 - Seta indicadora
+;; .bluetooth-empty-state        - Estado vazio
+;; .bluetooth-empty-icon         - Ícone no estado vazio
+;; .bluetooth-empty-title        - Título no estado vazio
+;; .bluetooth-empty-subtitle     - Subtítulo no estado vazio
+;; .bluetooth-empty-action-btn   - Botão de ação no estado vazio
+;; .bluetooth-empty-action-icon  - Ícone no botão de estado vazio

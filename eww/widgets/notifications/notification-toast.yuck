@@ -1,0 +1,125 @@
+(defvar notif_1_visible false)
+(defvar notif_1_id "")
+(defvar notif_1_app "")
+(defvar notif_1_summary "")
+(defvar notif_1_body "")
+(defvar notif_1_urgency "normal")
+
+(defvar notif_2_visible false)
+(defvar notif_2_id "")
+(defvar notif_2_app "")
+(defvar notif_2_summary "")
+(defvar notif_2_body "")
+(defvar notif_2_urgency "normal")
+
+(defvar notif_3_visible false)
+(defvar notif_3_id "")
+(defvar notif_3_app "")
+(defvar notif_3_summary "")
+(defvar notif_3_body "")
+(defvar notif_3_urgency "normal")
+
+(defwidget notification-toast [slot id app summary body urgency visible]
+  (revealer
+    :reveal visible
+    :transition "slidedown"
+    :duration "300ms"
+    (eventbox
+      :class "notification-toast ${urgency}"
+      (box
+        :orientation "v"
+        :space-evenly false
+        
+        (box
+          :class "toast-header"
+          :space-evenly false
+          :spacing 12
+          (box
+            :class "toast-app-icon"
+            :halign "start"
+            (label :text {urgency == "critical" ? "󰀪" : 
+                         urgency == "low" ? "󰌾" : "󰂚"}))
+          (label 
+            :class "toast-app-name"
+            :text app
+            :halign "start"
+            :hexpand true
+            :limit-width 40)
+          (button
+            :class "toast-close"
+            :onclick "~/.config/eww/scripts/notifications/display.sh close ${slot}"
+            "󰅖"))
+        
+        (box
+          :orientation "v"
+          :space-evenly false
+          :spacing 4
+          (label
+            :class "toast-summary"
+            :text summary
+            :halign "start"
+            :wrap true
+            :limit-width 35)
+          (label
+            :class "toast-body"
+            :text body
+            :halign "start"
+            :wrap true
+            :visible {body != ""}))))))
+
+(defwindow notification-toast-1
+  :monitor 0
+  :geometry (geometry
+    :x "20px"
+    :y "20px"
+    :anchor "bottom left"
+    :width "400px")
+  :stacking "overlay"
+  :windowtype "notification"
+  :focusable false
+  (notification-toast
+    :slot "1"
+    :id notif_1_id
+    :app notif_1_app
+    :summary notif_1_summary
+    :body notif_1_body
+    :urgency notif_1_urgency
+    :visible notif_1_visible))
+
+(defwindow notification-toast-2
+  :monitor 0
+  :geometry (geometry
+    :x "20px"
+    :y "140px"
+    :anchor "bottom left"
+    :width "400px")
+  :stacking "overlay"
+  :windowtype "notification"
+  :focusable false
+  (notification-toast
+    :slot "2"
+    :id notif_2_id
+    :app notif_2_app
+    :summary notif_2_summary
+    :body notif_2_body
+    :urgency notif_2_urgency
+    :visible notif_2_visible))
+
+(defwindow notification-toast-3
+  :monitor 0
+  :geometry (geometry
+    :x "20px"
+    :y "260px"
+    :anchor "bottom left"
+    :width "400px")
+  :stacking "overlay"
+  :windowtype "notification"
+  :focusable false
+  (notification-toast
+    :slot "3"
+    :id notif_3_id
+    :app notif_3_app
+    :summary notif_3_summary
+    :body notif_3_body
+    :urgency notif_3_urgency
+    :visible notif_3_visible))

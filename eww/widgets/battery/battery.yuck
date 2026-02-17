@@ -1,0 +1,175 @@
+(defwidget battery []
+  (eventbox
+    :onclick "${EWW_CMD} open battery-popup || ${EWW_CMD} close battery-popup"
+    (box 
+      :class "battery ${battery_status}"
+      :visible {battery_capacity != ""}
+      (label :text "${battery_icon} ${battery_capacity}%"))))
+
+(defwindow battery-popup
+  :monitor 0
+  :geometry (geometry 
+    :x "10px"
+    :y "10px"
+    :anchor "top right")
+  :stacking "overlay"
+  :windowtype "normal"
+  :focusable true
+  (eventbox
+    :onhoverlost "${EWW_CMD} close battery-popup"
+    (box
+      :class "battery-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 12
+      
+      ; Header com botão fechar
+      (box
+        :class "popup-header"
+        :orientation "h"
+        :space-evenly false
+        (label :text "Bateria" :class "popup-title" :halign "start" :hexpand true)
+        (button
+          :class "close-btn"
+          :onclick "${EWW_CMD} close battery-popup"
+          "✕"))
+      
+      (box
+        :class "battery-header"
+        :orientation "h"
+        :spacing 5
+        (label 
+          :class "battery-icon-large"
+          :text battery_icon)
+        (box
+          :orientation "v"
+          :valign "center"
+          :halign "start"
+          (label 
+            :class "battery-percent-large"
+            :text "${battery_capacity}%")
+          (label 
+            :class "battery-status-label"
+            :text battery_status_text)))
+      
+      (box
+        :class "battery-bar-container"
+        (scale
+          :class "battery-bar"
+          :value battery_capacity
+          :min 0
+          :max 100
+          :active false))
+      
+      (box
+        :class "battery-info-grid"
+        :orientation "v"
+        :spacing 2
+        
+        (box
+          :orientation "h"
+          (label :class "info-label" :text "祥 Tempo:" :halign "start" :hexpand true)
+          (label :class "info-value" :text battery_time :halign "end"))
+        (box
+          :orientation "h"
+          :space-evenly false
+          (label :class "info-label" :text " Status:" :halign "start" :hexpand true)
+          (label :class "info-value" :text battery_status_text :halign "end")))
+      
+      ; Separator
+      (box :class "separator" :style "min-height: 1px; background: rgba(255,255,255,0.1);")
+      
+      ; Power Profile Section
+      (box
+        :orientation "v"
+        :spacing 4
+        (label 
+         :class "section-title" 
+         :text "⚙ Perfil de Energia"
+         :halign "start")
+        
+        (eventbox
+          :cursor "pointer"
+          (button
+            :class "power-profile-btn ${power_profile == 'power-saver' ? 'active' : ''}"
+            :onclick "bash ~/.config/eww/scripts/battery/set-power-profile.sh power-saver &"
+            (box
+              :orientation "h"
+              :space-evenly false
+              :spacing 16
+              (label :text "" :class "profile-icon" :halign "start")
+              (label :text "Economia de Energia" :halign "start"))))
+        
+        (eventbox
+          :cursor "pointer"
+          (button
+            :class "power-profile-btn ${power_profile == 'balanced' ? 'active' : ''}"
+            :onclick "bash ~/.config/eww/scripts/battery/set-power-profile.sh balanced &"
+            (box
+              :orientation "h"
+              :space-evenly false
+              :spacing 16
+              (label :text "⚖" :class "profile-icon" :halign "start")
+              (label :text "Balanceado" :halign "start"))))
+        
+        (eventbox
+          :cursor "pointer"
+          (button
+            :class "power-profile-btn ${power_profile == 'performance' ? 'active' : ''}"
+            :onclick "bash ~/.config/eww/scripts/battery/set-power-profile.sh performance &"
+            (box
+              :orientation "h"
+              :space-evenly false
+              :spacing 16
+              (label :text "⚡ " :class "profile-icon" :halign "start")
+              (label :text "Performance" :halign "start"))))))))
+
+; Existing polls
+(defpoll battery_capacity 
+  :interval "15s"
+  `cat /sys/class/power_supply/BAT*/capacity 2>/dev/null || echo ""`)
+
+(defpoll battery_status 
+  :interval "15s"
+  `cat /sys/class/power_supply/BAT*/status 2>/dev/null | tr '[:upper:]' '[:lower:]' || echo ""`)
+
+(defpoll battery_icon 
+  :interval "15s"
+  `
+    capacity=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null || echo 0)
+    status=$(cat /sys/class/power_supply/BAT*/status 2>/dev/null)
+    
+    if [ "$status" = "Charging" ]; then
+      echo ""
+    elif [ $capacity -gt 65 ]; then
+      echo ""
+    elif [ $capacity -gt 40 ]; then
+      echo ""
+    elif [ $capacity -gt 20 ]; then
+      echo ""
+    else
+      echo ""
+    fi
+  `)
+
+(defpoll battery_time
+  :interval "20s"
+  `~/.config/eww/scripts/battery/battery-time.sh`)
+
+(defpoll battery_status_text
+  :interval "15s"
+  `
+    status=$(cat /sys/class/power_supply/BAT*/status 2>/dev/null)
+    case "$status" in
+      "Charging") echo "Carregando" ;;
+      "Discharging") echo "Em uso" ;;
+      "Full") echo "Carregada" ;;
+      "Not charging") echo "Conectado" ;;
+      *) echo "Desconhecido" ;;
+    esac
+  `)
+
+; New poll for power profile
+(defpoll power_profile
+  :interval "100ms"
+  `bash ~/.config/eww/scripts/battery/get-power-profile.sh`)

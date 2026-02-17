@@ -1,0 +1,19 @@
+(defwidget greeting_box []
+  (label
+    :class "greeting-text"
+    :style "font-family: 'Finlandica'; font-size: 19px; color: #f8f9fa;"
+    :halign "start"
+    :text greeting_message))
+
+(defpoll greeting_message :interval "1m"
+  `~/.config/eww/scripts/env/get-greeting.sh`)
+
+(defwindow greeting_window
+  :monitor 0
+  :geometry (geometry
+    :x "43px"
+    :y "190px"
+    :anchor "bottom left")
+  :stacking "bg"
+  :windowtype "desktop"
+  (greeting_box))

@@ -1,0 +1,213 @@
+/* ============================================================================
+   BATTERY WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* Battery widget (bar icon) */
+.battery {
+  padding: 8px 12px;
+  background: #343a40;
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.battery label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.battery:hover {
+  background: #495057;
+}
+
+.battery.charging {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.battery.charging label {
+  color: #3b82f6;
+}
+
+.battery.full {
+  background: rgba(16, 185, 129, 0.15);
+}
+
+.battery.full label {
+  color: #10b981;
+}
+
+.battery.discharging label {
+  color: #f8f9fa;
+}
+
+/* ============================================================================
+   BATTERY POPUP
+   ============================================================================ */
+
+.battery-popup {
+  min-width: 320px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Battery header (icon + percentage) */
+.battery-header {
+  margin-bottom: 16px;
+}
+
+.battery-icon-large {
+  font-size: 72px;
+  color: #f8f9fa;
+}
+
+.battery-percent-large {
+  color: #f8f9fa;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.battery-status-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Battery bar (progress) */
+.battery-bar-container {
+  margin-bottom: 16px;
+}
+
+.battery-bar {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.battery-bar trough {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.battery-bar highlight,
+.battery-bar progress {
+  background: linear-gradient(90deg, #22c55e, #eab308);
+  border-radius: 999px;
+  min-height: 8px;
+}
+
+/* Battery info grid */
+.battery-info-grid {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.info-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Separator */
+.separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+}
+
+/* Power profile section */
+.power-profile-section {
+  /* Container styles if needed */
+}
+
+.section-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.power-profile-btn {
+  padding: 12px;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.power-profile-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.power-profile-btn.active {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #3b82f6;
+}
+
+.power-profile-btn.active label {
+  color: #3b82f6;
+}
+
+.power-profile-btn label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.profile-icon {
+  font-size: 18px;
+}
+
+/* Button focus states */
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}

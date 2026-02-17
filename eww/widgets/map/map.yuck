@@ -1,0 +1,64 @@
+(defwidget location_map []
+  (box
+    :class "location-map-container"
+    :orientation "v"
+    :space-evenly false
+    :halign "fill"
+    :valign "fill"
+    :spacing 12
+    
+    
+    (image
+      :path "/tmp/eww_map_with_pois.svg"
+      :hexpand true
+      :vexpand true
+      :preserve-aspect-ratio true)))
+
+(defpoll location_city :interval "5m"
+  `~/.config/eww/scripts/env/get-kde-location.sh city`)
+
+(defpoll location_coords :interval "5m"
+  `~/.config/eww/scripts/env/get-kde-location.sh coords`)
+
+(defpoll map_updated :interval "5m"
+  `~/.config/eww/scripts/env/generate-map-with-pois.sh`)
+
+(defwindow location_window
+  :monitor 0
+  :geometry (geometry
+    :width "600px"
+    :height "660px"
+    :anchor "top right"
+    :x "-150px"
+    :y "-155px")
+  :stacking "bg"
+  :windowtype "desktop"
+  (location_map))
+
+
+(defwidget location_text []
+  (box
+      :orientation "v"
+      :spacing 3
+      (label
+       :style "font-family: 'Poppins'; font-size: 10px; color: rgba(255, 255, 255, 0.85); font-weight: 300; letter-spacing: 2px;"
+       :halign "start"
+       :text "SUA LOCALIZAÇÃO")
+      (label
+        :style "font-family: 'Poppins'; font-size: 14px; color: rgba(255, 255, 255, 0.9); font-weight: 400;"
+        :halign "start"
+        :text location_city)
+      (label
+        :style "font-family: 'Hack Nerd Font'; font-size: 8px; color: rgba(255, 255, 255, 0.85);"
+        :halign "start"
+        :text location_coords)))
+
+(defwindow location_text_window
+  :monitor 0
+  :geometry (geometry
+    :anchor "bottom left"
+    :x "45px"
+    :y "10px")
+  :stacking "bg"
+  :windowtype "desktop"
+  (location_text))

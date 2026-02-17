@@ -1,0 +1,280 @@
+/* ============================================================================
+   WIFI WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* WiFi widget (bar icon) */
+.wifi {
+  padding: 8px 12px;
+  background: #343a40;
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wifi label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wifi:hover {
+  background: #495057;
+}
+
+.wifi.connected {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.wifi.connected label {
+  color: #3b82f6;
+}
+
+.wifi.disconnected label {
+  color: #adb5bd;
+}
+
+/* ============================================================================
+   WIFI POPUP
+   ============================================================================ */
+
+.wifi-popup {
+  min-width: 360px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.wifi-popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.wifi-popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.wifi-close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wifi-close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.wifi-close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* WiFi header (icon + SSID) */
+.wifi-header {
+  margin-bottom: 16px;
+}
+
+.wifi-icon-large {
+  font-size: 72px;
+  color: #f8f9fa;
+}
+
+.wifi-ssid-large {
+  color: #f8f9fa;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.wifi-status-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* WiFi signal bar */
+.wifi-bar-container {
+  margin-bottom: 16px;
+}
+
+.wifi-signal-bar {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.wifi-signal-bar trough {
+  min-height: 8px;
+  background: #343a40;
+  border-radius: 999px;
+}
+
+.wifi-signal-bar highlight,
+.wifi-signal-bar progress {
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  border-radius: 999px;
+  min-height: 8px;
+}
+
+/* WiFi info grid */
+.wifi-info-grid {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.wifi-info-label {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wifi-info-value {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Separator */
+.wifi-separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+  margin: 12px 0;
+}
+
+/* Controls section */
+.wifi-section-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.wifi-action-btn {
+  padding: 12px 16px;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wifi-action-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.wifi-action-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+.wifi-action-btn.wifi-btn-connected {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.wifi-action-btn.wifi-btn-connected:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+}
+
+.wifi-action-btn.wifi-btn-connected label {
+  color: #ef4444;
+}
+
+.wifi-action-btn label {
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.wifi-action-icon {
+  font-size: 18px;
+}
+
+/* Available networks list */
+.wifi-networks-list {
+  /* Container styles if needed */
+}
+
+/* Button focus states */
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   WIFI EMPTY STATE
+   ============================================================================ */
+
+.wifi-empty-state {
+  padding: 32px 24px;
+  background: #343a40;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.wifi-empty-icon {
+  font-size: 64px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.wifi-empty-title {
+  color: #f8f9fa;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.wifi-empty-subtitle {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.wifi-empty-action-btn {
+  padding: 12px 24px;
+  background: #3b82f6;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 8px;
+}
+
+.wifi-empty-action-btn:hover {
+  background: #2563eb;
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.wifi-empty-action-btn:active {
+  background: #1d4ed8;
+}
+
+.wifi-empty-action-btn label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.wifi-empty-action-icon {
+  font-size: 18px;
+  color: #ffffff;
+}

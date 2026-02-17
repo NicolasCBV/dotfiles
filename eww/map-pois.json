@@ -1,0 +1,21 @@
+{
+      "points": [
+            {
+                  "name": "Casa",
+                  "lat": -19.414141
+                  "lon": -43.414141,
+                  "color": "#343a40",
+                  "font_weight": "500",
+                  "font_family": "Poppins"
+            },
+            {
+                  "name": "PUC Minas",
+                  "lat": -19.9247067,
+                  "lon": -43.9931574,
+                  "color": "#343a40",
+                  "font_weight": "500",
+                  "font_family": "Poppins",
+                  "link": "https://www.google.com/maps/place/PUC+Minas+Cora%C3%A7%C3%A3o+Eucar%C3%ADstico/@-19.9244809,-43.9948348,17z/data=!3m1!4b1!4m6!3m5!1s0xa697a1ff6f1903:0x901d04f218f49fa5!8m2!3d-19.924486!4d-43.9922545!16s%2Fg%2F11h57q0f3m?entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D"
+            }
+      ]
+}

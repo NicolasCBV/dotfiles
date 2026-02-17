@@ -1,0 +1,22 @@
+(defwidget weather_icon_box []
+  (box
+    :class "weather-icon-box"
+    :style "background-color: rgb(160, 160, 178); min-width: 50px; min-height: 50px;"
+    
+    (label 
+      :class "weather-icon"
+      :style "font-family: 'Hack Nerd Font'; font-size: 25px; color: #21212e; margin-left: -9px;"
+      :text weather_icon)))
+
+(defpoll weather_icon :interval "5s"
+  `~/.config/eww/scripts/env/get-weather-icon.sh`)
+
+(defwindow weather_window
+  :monitor 0
+  :geometry (geometry
+    :x "150px"
+    :y "250px"
+    :anchor "bottom left")
+  :stacking "bg"
+  :windowtype "desktop"
+  (weather_icon_box))

@@ -1,0 +1,76 @@
+$primary50: #212529;
+$primary100: #343a40;
+$primary150: #495057;
+$primary200: #6c757d;
+$primary250: #adb5bd;
+$primary300: #ced4da;
+$primary350: #dee2e6;
+$primary400: #e9ecef;
+$primary450: #f8f9fa;
+$radius: 16px;
+
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 12px;
+}
+
+.exterior-badge {
+  padding: 5px 10px;
+  font-size: 8px;
+}
+
+.bar {
+  color: $primary450;
+  padding: 0 16px;
+}
+
+.right {
+  border-radius: 0 0 $radius $radius;
+}
+
+.left {
+  background-color: $primary50;
+  border-radius: 0 0 $radius $radius;
+  padding: 5px 16px;
+}
+
+.window-title {
+  color: $primary350;
+  padding: 0 15px;
+  font-style: italic;
+}
+
+.clock {
+  font-size: 16px;
+  font-weight: bold;
+  color: $primary450;
+}
+
+.time {
+  color: $primary250;
+}
+
+.system-info {
+  background-color: $primary100;
+  padding: 5px 10px;
+  border-radius: $radius;
+  
+  label {
+    color: $primary300;
+  }
+}
+
+.volume {
+  background-color: $primary100;
+  padding: 5px 10px;
+  border-radius: $radius;
+  
+  button {
+    color: $primary350;
+    
+    &:hover {
+      color: $primary450;
+    }
+  }
+}

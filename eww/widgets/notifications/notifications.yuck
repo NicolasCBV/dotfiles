@@ -1,0 +1,97 @@
+(defpoll notifications_unread :interval "700ms"
+  "~/.config/eww/scripts/notifications/manager.sh unread-count")
+
+(defpoll notifications_widget :interval "700ms"
+  "~/.config/eww/scripts/notifications/manager.sh list")
+
+(defwidget notifications []
+  (eventbox
+    :onclick "${EWW_CMD} open notification-popup || ${EWW_CMD} close notification-popup"
+    (box 
+      :class "notifications ${notifications_unread > 0 ? 'has-unread' : ''}"
+      :orientation "h"
+      :space-evenly false
+      :spacing 8
+      (label 
+        :class "notification-icon"
+        :text "󰂚")
+      (label 
+        :class "notification-count"
+        :text "${notifications_unread}"))))
+
+(defwidget notification-item [id app summary body timestamp is_read]
+  (box :class "notification-item ${is_read == 'true' ? 'read' : 'unread'}" 
+       :orientation "v" :space-evenly false
+    (box :class "notification-header" :space-evenly false
+      (label :class "notification-app" :text app :halign "start" :hexpand true :limit-width 20)
+      (label :class "notification-time" 
+             :text {EWW_TIME - timestamp > 86400 ? 
+                    "${(EWW_TIME - timestamp) / 86400}d" : 
+                    EWW_TIME - timestamp > 3600 ? 
+                    "${(EWW_TIME - timestamp) / 3600}h" : 
+                    "${(EWW_TIME - timestamp) / 60}m"}
+             :halign "end"))
+    (label :class "notification-summary" :text summary :halign "start" :wrap true)
+    (label :class "notification-body" :text body :halign "start" :wrap true
+           :visible {body != ""})
+    (box :class "notification-actions" :space-evenly false :spacing 8
+      (eventbox
+        (button :class "action-button mark-read" 
+                :onclick "~/.config/eww/scripts/notifications/manager.sh mark-read ${id}"
+                :visible {is_read == "false"}
+                (label :text "󰄬")))
+      (eventbox
+        (button :class "action-button remove" 
+                :onclick "~/.config/eww/scripts/notifications/manager.sh remove ${id}"
+                (label :text "󰆴"))))))
+
+(defwindow notification-popup
+  :monitor 0
+  :geometry (geometry 
+    :x "15px"
+    :y "10px"
+    :anchor "top left")
+  :stacking "overlay"
+  :windowtype "normal"
+  :focusable true
+  (eventbox
+    :onhoverlost "${EWW_CMD} close notification-popup"
+    (box
+      :class "notifications-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 12
+      
+      (box
+        :class "notifications-popup-header"
+        :orientation "h"
+        :space-evenly false
+        (label :text "󰂚 Notificações" :class "notifications-title" :halign "start" :hexpand true)
+        (button
+          :class "notifications-close-btn"
+          :onclick "${EWW_CMD} close notification-popup"
+          "✕"))
+     
+      (scroll
+       :height 300
+       :vscroll true
+       :hscroll false
+       (literal :content notifications_widget))
+      
+      (box :class "notifications-separator")
+      
+      (box
+        :class "notifications-footer"
+        :orientation "h"
+        :space-evenly false
+        (eventbox
+          (button
+            :class "clear-all-button"
+            :onclick "~/.config/eww/scripts/notifications/manager.sh clear-all"
+            :hexpand true
+            (box
+              :orientation "h"
+              :space-evenly false
+              :spacing 8
+              (label :text "󰎟" :class "action-icon")
+              (label :text "Limpar tudo"))))))))

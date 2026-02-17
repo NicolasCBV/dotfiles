@@ -1,0 +1,226 @@
+/* ============================================================================
+   CALENDAR WIDGET - EWW/GTK CSS
+   ============================================================================ */
+
+/* Calendar widget (bar icon) */
+.calendar {
+  border-radius: 8px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar label {
+  color: #f8f9fa;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.calendar:hover {
+  background: #495057;
+}
+
+.calendar-icon {
+  color: #f8f9fa;
+  font-size: 16px;
+}
+
+/* ============================================================================
+   CALENDAR POPUP
+   ============================================================================ */
+
+.calendar-popup {
+  min-width: 380px;
+  padding: 16px;
+  background: #212529;
+  border: 1px solid rgba(206, 212, 218, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup header */
+.calendar-popup-header {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(206, 212, 218, 0.15);
+}
+
+.calendar-popup-title {
+  color: #f8f9fa;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.calendar-close-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #adb5bd;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-close-btn:hover {
+  background: rgba(248, 249, 250, 0.08);
+  color: #f8f9fa;
+}
+
+.calendar-close-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Month/Year header */
+.calendar-header {
+  margin-bottom: 12px;
+}
+
+.calendar-month-year {
+  color: #f8f9fa;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.calendar-nav-btn {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #f8f9fa;
+  font-size: 16px;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-nav-btn:hover {
+  background: #495057;
+  border-color: rgba(173, 181, 189, 0.2);
+}
+
+.calendar-nav-btn:active {
+  background: rgba(248, 249, 250, 0.12);
+}
+
+/* Weekday headers */
+.calendar-weekdays {
+  margin-bottom: 8px;
+  padding: 8px 0;
+  background: #343a40;
+  border-radius: 8px;
+}
+
+.calendar-weekday {
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Calendar grid */
+.calendar-grid {
+  /* Grid layout handled in yuck */
+}
+
+/* Day cells */
+.calendar-day {
+  min-width: 42px;
+  min-height: 42px;
+  padding: 0;
+  background: #343a40;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #f8f9fa;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 2px;
+}
+
+.calendar-day.today {
+  background: #495057;
+  border-color: #3b82f6;
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.calendar-day.other-month {
+  color: #6c757d;
+  background: transparent;
+}
+
+.calendar-day.marked {
+  border: 2px solid;
+  font-weight: 700;
+}
+
+/* Separator */
+.calendar-separator {
+  min-height: 1px;
+  background: rgba(206, 212, 218, 0.15);
+  margin: 12px 0;
+}
+
+/* Legend section */
+.calendar-legend {
+  margin-top: 12px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.calendar-legend-title {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.calendar-legend-item {
+  padding: 6px 0;
+}
+
+.calendar-legend-color {
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.calendar-legend-text {
+  color: #f8f9fa;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Quick info section */
+.calendar-info {
+  margin-bottom: 12px;
+  padding: 12px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.calendar-info-label {
+  color: #adb5bd;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.calendar-info-value {
+  color: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Empty state */
+.calendar-empty-legend {
+  padding: 16px;
+  background: #343a40;
+  border-radius: 12px;
+}
+
+.calendar-empty-legend-text {
+  color: #adb5bd;
+  font-size: 13px;
+  font-weight: 400;
+}

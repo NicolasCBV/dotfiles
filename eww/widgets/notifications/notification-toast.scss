@@ -1,0 +1,79 @@
+.notification-toast {
+  background: $primary50;
+  border: 1px solid $primary150;
+  border-left: 4px solid $primary200;
+  border-radius: 8px;
+  padding: 14px 16px;
+  
+  &.low {
+    border-left-color: $primary250;
+    
+    .toast-app-icon {
+      color: $primary250;
+    }
+  }
+  
+  &.normal {
+    border-left-color: #4a9eff;
+    
+    .toast-app-icon {
+      color: #4a9eff;
+    }
+  }
+  
+  &.critical {
+    border-left-color: #dc3545;
+    background: linear-gradient(to right, rgba(220, 53, 69, 0.08), $primary50);
+    
+    .toast-app-icon {
+      color: #dc3545;
+    }
+  }
+  
+  .toast-header {
+    margin-bottom: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 8px;
+   
+    .toast-app-icon {
+      font-size: 18px;
+    }
+   
+    .toast-app-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: $primary250;
+    }
+   
+    .toast-close {
+      color: $primary200;
+      padding: 4px 6px;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.2s;
+     
+      &:hover {
+        background: $primary150;
+        color: $primary300;
+      }
+    }
+  }
+  
+
+  .toast-summary {
+    font-size: 14px;
+    font-weight: 600;
+    color: $primary300;
+    margin-left: 16px;
+  }
+
+  .toast-body {
+    font-size: 13px;
+    color: $primary250;
+    margin-top: 4px;
+    margin-left: 16px;
+    margin-bottom: 16px;
+  }
+}
+

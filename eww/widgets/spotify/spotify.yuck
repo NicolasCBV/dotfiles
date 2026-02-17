@@ -1,0 +1,241 @@
+;; ============================================================================
+;; SPOTIFY WIDGET (bar icon)
+;; ============================================================================
+
+(defwidget spotify []
+  (eventbox
+    :onclick "${EWW_CMD} open spotify-popup || ${EWW_CMD} close spotify-popup"
+    :cursor "pointer"
+    (box
+      :class "spotify"
+      :visible {spotify_cover != ""}
+      :style "background-image: url('${spotify_cover}');")))
+
+;; ============================================================================
+;; SPOTIFY POPUP
+;; ============================================================================
+
+(defwindow spotify-popup
+  :monitor 0
+  :geometry (geometry 
+    :x "10px"
+    :y "10px"
+    :anchor "top center")
+  :stacking "overlay"
+  :windowtype "normal"
+  :focusable true
+  (eventbox
+    :onhoverlost "${EWW_CMD} close spotify-popup"
+    (box
+      :class "spotify-popup"
+      :orientation "v"
+      :space-evenly false
+      :spacing 4
+      
+      ;; Header com botão fechar
+      (box
+        :class "spotify-popup-header"
+        :orientation "h"
+        :space-evenly false
+        (label :text "Spotify" :class "spotify-popup-title" :halign "start" :hexpand true)
+        (button
+          :class "spotify-close-btn"
+          :onclick "${EWW_CMD} close spotify-popup"
+          "✕"))
+      
+      ;; Album cover
+      (box
+        :orientation "h"
+        :halign "center"
+        :visible {spotify_status != ""}
+        (box
+          :class "spotify-cover-large"
+          :style "background-image: url('${spotify_cover}');"))
+      
+      ;; Track info
+      (box
+        :class "spotify-track-info"
+        :orientation "v"
+        :space-evenly false
+        :spacing 4
+        :visible {spotify_status != ""}
+        (label 
+          :class "spotify-track-title"
+          :text {spotify_title != "" ? spotify_title : "Sem título"}
+          :limit-width 20
+          :halign "center")
+        (label 
+          :class "spotify-track-artist"
+          :text {spotify_artist != "" ? spotify_artist : "Artista desconhecido"}
+          :limit-width 20
+          :halign "center")
+        (label 
+          :class "spotify-track-album"
+          :text {spotify_album != "" ? spotify_album : ""}
+          :limit-width 20
+          :halign "center"))
+      
+      ;; Progress bar
+      (box
+        :class "spotify-progress-container"
+        :orientation "v"
+        :space-evenly false
+        :visible {spotify_status != ""}
+        (scale
+          :class "spotify-progress-bar"
+          :value {spotify_position_percent}
+          :min 0
+          :max 100
+          :active false)
+        (box
+          :orientation "h"
+          :space-evenly false
+          (label 
+            :class "spotify-time-label" 
+            :text spotify_position
+            :halign "start"
+            :hexpand true)
+          (label 
+            :class "spotify-time-label" 
+            :text spotify_length
+            :halign "end")))
+      
+      ;; Control buttons
+      (box
+        :class "spotify-controls"
+        :orientation "h"
+        :space-evenly false
+        :spacing 12
+        :halign "center"
+        :visible {spotify_status != ""}
+        
+        ;; Shuffle button
+        (button
+          :class "spotify-mode-btn ${spotify_shuffle == 'On' ? 'active' : ''}"
+          :onclick "playerctl --player=spotify shuffle toggle"
+          :tooltip "Aleatório"
+          (label :text "󰒟"))
+        
+        ;; Previous button
+        (button
+          :class "spotify-control-btn"
+          :onclick "playerctl --player=spotify previous"
+          :tooltip "Anterior"
+          (label :text "󰒮"))
+        
+        ;; Play/Pause button
+        (button
+          :class "spotify-control-btn spotify-play-btn"
+          :onclick "playerctl --player=spotify play-pause"
+          :tooltip {spotify_status == "Playing" ? "Pausar" : "Reproduzir"}
+          (label :text {spotify_status == "Playing" ? "󰏤" : "󰐊"}))
+        
+        ;; Next button
+        (button
+          :class "spotify-control-btn"
+          :onclick "playerctl --player=spotify next"
+          :tooltip "Próxima"
+          (label :text "󰒭"))
+        
+        ;; Repeat button
+        (button
+          :class "spotify-mode-btn ${spotify_loop == 'Playlist' || spotify_loop == 'Track' ? 'active' : ''}"
+          :onclick "bash ~/.config/eww/scripts/spotify/spotify-toggle-loop.sh"
+          :tooltip "Repetir"
+          (label :text {spotify_loop == "Track" ? "󰑘" : "󰑖"})))
+      
+      ;; Separator
+      (box 
+        :class "spotify-separator" 
+        :visible {spotify_status != ""}
+        :style "min-height: 1px; background: rgba(255,255,255,0.1);")
+      
+      ;; Volume control
+      (box
+        :class "spotify-volume-container"
+        :orientation "v"
+        :space-evenly false
+        :visible {spotify_status != ""}
+        (label 
+          :class "spotify-section-title" 
+          :text "Volume"
+          :halign "start")
+        (box
+          :orientation "h"
+          :space-evenly false
+          :spacing 12
+          (label 
+            :class "spotify-volume-icon"
+            :text {spotify_volume > 50 ? "󰕾" : spotify_volume > 0 ? "󰖀" : "󰝟"})
+          (scale
+            :class "spotify-volume-bar"
+            :value {spotify_volume}
+            :min 0
+            :max 100
+            :onchange "playerctl --player=spotify volume $(echo 'scale=2; {}/100' | bc)"
+            :hexpand true)))
+      
+      ;; Separator
+      (box 
+        :class "spotify-separator" 
+        :visible {spotify_status != ""}
+        :style "min-height: 1px; background: rgba(255,255,255,0.1);"))))
+
+;; ============================================================================
+;; SPOTIFY POLLS
+;; ============================================================================
+
+;; Capa do álbum
+(defpoll spotify_cover
+  :interval "200ms"
+  "~/.config/eww/scripts/spotify/spotify-get-cover.sh")
+
+;; Status (Playing, Paused, Stopped)
+(defpoll spotify_status
+  :interval "200ms"
+  "playerctl --player=spotify status 2>/dev/null || echo ''")
+
+;; Título da música
+(defpoll spotify_title
+  :interval "200ms"
+  "playerctl --player=spotify metadata title 2>/dev/null || echo ''")
+
+;; Artista
+(defpoll spotify_artist
+  :interval "200ms"
+  "playerctl --player=spotify metadata artist 2>/dev/null || echo ''")
+
+;; Álbum
+(defpoll spotify_album
+  :interval "200ms"
+  "playerctl --player=spotify metadata album 2>/dev/null || echo ''")
+
+;; Posição atual (formato HH:MM:SS)
+(defpoll spotify_position
+  :interval "200ms"
+  "~/.config/eww/scripts/spotify/spotify-position.sh")
+
+;; Duração total (formato HH:MM:SS)
+(defpoll spotify_length
+  :interval "5s"
+  "~/.config/eww/scripts/spotify/spotify-length.sh")
+
+;; Posição em porcentagem
+(defpoll spotify_position_percent
+  :interval "200ms"
+  "~/.config/eww/scripts/spotify/spotify-position-percent.sh")
+
+;; Volume (0-100)
+(defpoll spotify_volume
+  :interval "200ms"
+  "~/.config/eww/scripts/spotify/spotify-volume.sh")
+
+;; Shuffle (On/Off)
+(defpoll spotify_shuffle
+  :interval "200ms"
+  "playerctl --player=spotify shuffle 2>/dev/null || echo 'Off'")
+
+;; Loop/Repeat (None/Track/Playlist)
+(defpoll spotify_loop
+  :interval "200ms"
+  "playerctl --player=spotify loop 2>/dev/null || echo 'None'")

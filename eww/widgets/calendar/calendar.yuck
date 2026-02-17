@@ -1,0 +1,177 @@
+;; ============================================================================
+;; CALENDAR WIDGET (bar icon)
+;; ============================================================================
+
+(defwidget custom_calendar []
+  (eventbox
+    :onclick "${EWW_CMD} open calendar-popup || ${EWW_CMD} close calendar-popup"
+    :cursor "pointer"
+    (box
+      :class "calendar"
+      :orientation "h"
+      :space-evenly false
+      :spacing 8
+      (label
+        :class "calendar-icon"
+        :text "")
+      (label
+        :text calendar_time))))
+
+;; ============================================================================
+;; CALENDAR POPUP
+;; ============================================================================
+
+(defwindow calendar-popup
+  :monitor 0
+  :geometry (geometry 
+    :x "10px"
+    :y "10px"
+    :anchor "top center")
+  :stacking "overlay"
+  :windowtype "normal"
+  :focusable true
+  (eventbox
+    :onhoverlost "${EWW_CMD} close calendar-popup"
+    (scroll
+      :height 600
+      :vscroll true
+      :hscroll false
+      (box
+        :class "calendar-popup"
+        :orientation "v"
+        :space-evenly false
+        :spacing 8
+        
+        ;; Header com botão fechar
+        (box
+          :class "calendar-popup-header"
+          :orientation "h"
+          :space-evenly false
+          (label :text "Calendário" :class "calendar-popup-title" :halign "start" :hexpand true)
+          (button
+            :class "calendar-close-btn"
+            :onclick "${EWW_CMD} close calendar-popup"
+            "✕"))
+        
+        ;; Quick info
+        (box
+          :class "calendar-info"
+          :orientation "v"
+          :space-evenly false
+          :spacing 4
+          (box
+            :orientation "h"
+            :space-evenly false
+            (label :class "calendar-info-label" :text "Hoje:" :halign "start" :hexpand true)
+            (label :class "calendar-info-value" :text calendar_full_date :halign "end"))
+          (box
+            :orientation "h"
+            :space-evenly false
+            (label :class "calendar-info-label" :text "Dia da semana:" :halign "start" :hexpand true)
+            (label :class "calendar-info-value" :text calendar_weekday :halign "end")))
+        
+        ;; Month/Year header with navigation
+        (box
+          :class "calendar-header"
+          :orientation "h"
+          :space-evenly false
+          :spacing 8
+          (button
+            :class "calendar-nav-btn"
+            :onclick "bash ~/.config/eww/scripts/calendar/calendar-prev-month.sh"
+            :tooltip "Mês anterior"
+            (label :text ""))
+          (label
+            :class "calendar-month-year"
+            :text calendar_month_year
+            :halign "center"
+            :hexpand true)
+          (button
+            :class "calendar-nav-btn"
+            :onclick "bash ~/.config/eww/scripts/calendar/calendar-next-month.sh"
+            :tooltip "Próximo mês"
+            (label :text "")))
+        
+        ;; Weekday headers
+        (box
+          :class "calendar-weekdays"
+          :orientation "h"
+          :space-evenly true
+          (label :class "calendar-weekday" :text "Dom")
+          (label :class "calendar-weekday" :text "Seg")
+          (label :class "calendar-weekday" :text "Ter")
+          (label :class "calendar-weekday" :text "Qua")
+          (label :class "calendar-weekday" :text "Qui")
+          (label :class "calendar-weekday" :text "Sex")
+          (label :class "calendar-weekday" :text "Sáb"))
+        
+        ;; Calendar grid (generated dynamically)
+        (box
+          :class "calendar-grid"
+          :orientation "v"
+          :space-evenly false
+          (literal :content calendar_days))
+        
+        ;; Separator
+        (box :class "calendar-separator" :style "min-height: 1px; background: rgba(255,255,255,0.1);")
+        
+        ;; Legend
+        (box
+          :orientation "v"
+          :space-evenly false
+          :spacing 4
+          (label 
+            :class "calendar-legend-title" 
+            :text " Marcações"
+            :halign "start")
+          
+          (box
+            :class "calendar-legend"
+            :orientation "v"
+            :space-evenly false
+            :visible {calendar_legend != ""}
+            (literal :content calendar_legend))
+          
+          ;; Empty state
+          (box
+            :class "calendar-empty-legend"
+            :orientation "v"
+            :halign "start"
+            :visible {calendar_legend == ""}
+            (label 
+              :class "calendar-empty-legend-text"
+              :text "Nenhuma marcação para este mês")))))))
+
+;; ============================================================================
+;; CALENDAR POLLS
+;; ============================================================================
+
+;; Hora e data para a barra
+(defpoll calendar_time
+  :interval "50ms"
+  "date '+%H:%M'")
+
+;; Data completa
+(defpoll calendar_full_date
+  :interval "50ms"
+  "date '+%d de %B de %Y' | sed 's/January/Janeiro/;s/February/Fevereiro/;s/March/Março/;s/April/Abril/;s/May/Maio/;s/June/Junho/;s/July/Julho/;s/August/Agosto/;s/September/Setembro/;s/October/Outubro/;s/November/Novembro/;s/December/Dezembro/'")
+
+;; Dia da semana
+(defpoll calendar_weekday
+  :interval "50ms"
+  "date '+%A' | sed 's/Monday/Segunda-feira/;s/Tuesday/Terça-feira/;s/Wednesday/Quarta-feira/;s/Thursday/Quinta-feira/;s/Friday/Sexta-feira/;s/Saturday/Sábado/;s/Sunday/Domingo/'")
+
+;; Mês e ano
+(defpoll calendar_month_year
+  :interval "50ms"
+  "bash ~/.config/eww/scripts/calendar/calendar-month-year.sh")
+
+;; Grid de dias do calendário
+(defpoll calendar_days
+  :interval "50ms"
+  "bash ~/.config/eww/scripts/calendar/calendar-generate.sh")
+
+;; Legenda de marcações
+(defpoll calendar_legend
+  :interval "50ms"
+  "bash ~/.config/eww/scripts/calendar/calendar-legend.sh")

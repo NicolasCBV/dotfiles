@@ -1,0 +1,229 @@
+;; WiFi Widget (bar icon)
+(defwidget wifi []
+  (eventbox
+    :onclick "${EWW_CMD} open wifi-popup || ${EWW_CMD} close wifi-popup"
+    (box 
+      :class "wifi ${wifi_status}"
+      :orientation "h"
+      :space-evenly false
+      :spacing 12
+      :visible {wifi_enabled == "true"}
+      (label 
+        :class "wifi-status-label"
+        :text wifi_icon)
+      (label 
+        :class "wifi-status-label"
+        :text "${wifi_ssid}"))))
+
+(defwindow wifi-popup
+  :monitor 0
+  :geometry (geometry 
+    :x "10px"
+    :y "10px"
+    :anchor "top right")
+  :stacking "overlay"
+  :windowtype "normal"
+  :focusable true
+  (eventbox
+    :onhoverlost "${EWW_CMD} close wifi-popup"
+    (scroll
+      :height 600
+      :vscroll true
+      :hscroll false
+      (box
+        :class "wifi-popup"
+        :orientation "v"
+        :space-evenly false
+        :spacing 12
+        
+        ; Header com botão fechar
+        (box
+          :class "wifi-popup-header"
+          :orientation "h"
+          :space-evenly false
+          (label :text "Wi-Fi" :class "wifi-popup-title" :halign "start" :hexpand true)
+          (button
+            :class "wifi-close-btn"
+            :onclick "${EWW_CMD} close wifi-popup"
+            "✕"))
+        
+        ; WiFi header (icon + SSID)
+        (box
+          :class "wifi-header"
+          :orientation "h"
+          :spacing 12
+          (label 
+            :class "wifi-icon-large"
+            :text wifi_icon)
+          (box
+            :orientation "v"
+            :valign "center"
+            :halign "start"
+            (label 
+              :class "wifi-ssid-large"
+              :text {wifi_ssid != "" ? wifi_ssid : "Desconectado"})
+            (label 
+              :class "wifi-status-label"
+              :text wifi_status_text)))
+        
+        ; WiFi signal bar
+        (box
+          :class "wifi-bar-container"
+          :visible {wifi_ssid != ""}
+          (scale
+            :class "wifi-signal-bar"
+            :value wifi_signal
+            :min 0
+            :max 100
+            :active false))
+        
+        ; WiFi info grid
+        (box
+          :class "wifi-info-grid"
+          :orientation "v"
+          :spacing 2
+          :visible {wifi_ssid != ""}
+          
+          (box
+            :orientation "h"
+            (label :class "wifi-info-label" :text " Sinal:" :halign "start" :hexpand true)
+            (label :class "wifi-info-value" :text "${wifi_signal}%" :halign "end"))
+          (box
+            :orientation "h"
+            (label :class "wifi-info-label" :text "󰓅  Velocidade:" :halign "start" :hexpand true)
+            (label :class "wifi-info-value" :text wifi_speed :halign "end"))
+          (box
+            :orientation "h"
+            (label :class "wifi-info-label" :text "󰩟  IP:" :halign "start" :hexpand true)
+            (label :class "wifi-info-value" :text wifi_ip :halign "end"))
+          (box
+            :orientation "h"
+            :space-evenly false
+            (label :class "wifi-info-label" :text "  Segurança:" :halign "start" :hexpand true)
+            (label :class "wifi-info-value" :text wifi_security :halign "end")))
+        
+        ; Separator
+        (box :class "wifi-separator" :style "min-height: 1px; background: rgba(255,255,255,0.1);")
+        
+        ; Connection controls
+        (box
+          :orientation "v"
+          :spacing 4
+          :space-evenly false
+          (label 
+           :class "wifi-section-title" 
+           :text "Controles"
+           :halign "start")
+
+          (eventbox
+            :cursor "pointer"
+            (button
+              :class "wifi-action-btn ${wifi_ssid != '' ? 'wifi-btn-connected' : ''}"
+              :onclick "bash ~/.config/eww/scripts/wifi/wifi-disconnect.sh &"
+              (box
+                :orientation "h"
+                :space-evenly false
+                :spacing 8
+                (label :text "󰖪" :class "wifi-action-icon")
+                (label :text "Desconectar da rede atual"))))
+            
+          (eventbox
+            :cursor "pointer"
+            (button
+              :class "wifi-action-btn"
+              :onclick "bash ~/.config/eww/scripts/wifi/wifi-rescan.sh &"
+              (box
+                :orientation "h"
+                :space-evenly false
+                :spacing 8
+                (label :text "󰑓" :class "wifi-action-icon")
+                (label :text "Atualizar lista de redes")))))
+        
+        ; Separator
+        (box :class "wifi-separator" :style "min-height: 1px; background: rgba(255,255,255,0.1);")
+        
+        ; Available networks
+        (box
+          :orientation "v"
+          :space-evenly false
+          :spacing 4
+          (label 
+           :class "wifi-section-title" 
+           :text " Redes Disponíveis"
+           :halign "start")
+          
+          (box
+            :class "wifi-networks-list"
+            :orientation "v"
+            :spacing 4
+            (literal :content wifi_networks)))))))
+
+; WiFi polls
+(defpoll wifi_enabled
+  :interval "5s"
+  `nmcli radio wifi | grep -q "enabled" && echo "true" || echo "false"`)
+
+(defpoll wifi_ssid
+  :interval "5s"
+  `nmcli -t -f active,ssid dev wifi | grep -E 'yes|sim' | cut -d':' -f2 || echo ""`)
+
+(defpoll wifi_status
+  :interval "1s"
+  `
+    if nmcli -t -f active dev wifi | grep -Eq 'yes|sim'; then
+      echo "connected"
+    else
+      echo "disconnected"
+    fi
+  `)
+
+(defpoll wifi_icon
+  :interval "1s"
+  `
+    if ! nmcli radio wifi | grep -q "enabled"; then
+      echo "󰖪"
+    elif nmcli -t -f active dev wifi | grep -Eq 'yes|sim'; then
+      signal=$(nmcli -t -f active,signal dev wifi | grep -E 'yes|sim' | cut -d':' -f2)
+      if [ "$signal" -gt 75 ]; then
+        echo "󰤨"
+      elif [ "$signal" -gt 50 ]; then
+        echo "󰤥"
+      elif [ "$signal" -gt 25 ]; then
+        echo "󰤢"
+      else
+        echo "󰤟"
+      fi
+    else
+      echo "󰤭"
+    fi
+  `)
+
+(defpoll wifi_signal
+  :interval "1s"
+  `~/.config/eww/scripts/wifi/wifi-signal.sh`)
+
+(defpoll wifi_status_text
+  :interval "1s"
+  `
+    if nmcli -t -f active dev wifi | grep -Eq 'yes|sim'; then
+      echo "Conectado"
+    else
+      echo "Desconectado"
+    fi
+  `)
+
+(defpoll wifi_speed
+  :interval "15s"
+  `~/.config/eww/scripts/wifi/wifi-speed.sh`)
+
+(defpoll wifi_ip
+  :interval "2s"
+  `~/.config/eww/scripts/wifi/wifi-ip.sh`)
+
+(defpoll wifi_security
+  :interval "2s"
+  `~/.config/eww/scripts/wifi/wifi-security.sh`)
+
+(defpoll wifi_networks
+  :interval "10s"
+  `bash ~/.config/eww/scripts/wifi/wifi-list.sh`)

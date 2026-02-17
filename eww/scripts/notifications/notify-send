@@ -1,0 +1,54 @@
+#!/bin/bash
+URGENCY=1
+APP="System"
+SUMMARY=""
+BODY=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -u|--urgency)
+            case "$2" in
+                low) URGENCY=0 ;;
+                critical) URGENCY=2 ;;
+                *) URGENCY=1 ;;
+            esac
+            shift 2 ;;
+        -a|--app-name) APP="$2"; shift 2 ;;
+        -i|--icon|-t|--expire-time) shift 2 ;;
+        -h|--hint) shift 2 ;;
+        *) [ -z "$SUMMARY" ] && SUMMARY="$1" || BODY="$1"; shift ;;
+    esac
+done
+
+[ -z "$SUMMARY" ] && exit 0
+
+DATA_DIR="$HOME/.local/share/eww"
+NOTIF_FILE="$DATA_DIR/notifications.json"
+
+mkdir -p "$DATA_DIR"
+[ ! -f "$NOTIF_FILE" ] && echo '{"notifications":[]}' > "$NOTIF_FILE"
+
+TIMESTAMP=$(date +%s)
+ID=$(date +%s%N | sha256sum | head -c 16)
+
+
+jq --arg id "$ID" \
+   --arg app "$APP" \
+   --arg summary "$SUMMARY" \
+   --arg body "$BODY" \
+   --arg time "$TIMESTAMP" \
+   --argjson urgency "$URGENCY" \
+   '.notifications += [{
+       id: $id,
+       app: $app,
+       summary: $summary,
+       body: $body,
+       timestamp: ($time | tonumber),
+       urgency: $urgency,
+       read: false,
+       dispatch: false
+   }]' "$NOTIF_FILE" > "$NOTIF_FILE.tmp" && mv "$NOTIF_FILE.tmp" "$NOTIF_FILE"
+
+eww update notifications_unread=$(jq '[.notifications[] | select(.read == false)] | length' "$NOTIF_FILE" 2>/dev/null) 2>/dev/null
+
+exit 0
